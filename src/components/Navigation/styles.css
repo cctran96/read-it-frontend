@@ -1,13 +1,20 @@
 .navbar {
     display: flex;
     align-items: center;
-    border: 1px solid black;
+    border-bottom: 1px solid black;
+    position: relative;
+    z-index: 9999;
+}
+
+.navbar svg {
+    cursor: pointer;
 }
 
 .logo img {
     width: 50px;
     height: 50px;
     margin-left: 5px;
+    pointer-events: none;
 }
 
 .nav-button {
@@ -18,6 +25,7 @@
 .nav-items {
     display: flex;
     width: 100%;
+    z-index: 2;
 }
 
 .nav-search {
@@ -56,4 +64,15 @@
     margin-left: auto;
     width: 30px;
     height: 30px;
+}
+
+.drop-search {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 53px;
+    left: 0;
+    height: 50px;
+    width: 100%;
+    z-index: 1;
 }
