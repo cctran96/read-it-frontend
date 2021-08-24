@@ -12,6 +12,25 @@ code {
     monospace;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .web-container {
   height: 100vh;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 20;
+  overflow-y: scroll;
+}
+
+.overlay::-webkit-scrollbar {
+  width: 0;
 }

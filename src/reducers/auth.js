@@ -4,7 +4,7 @@ const initialState = {
     errors: false
 }
 
-export const loginReducer = (state = initialState, action) => {
+export const user = (state = initialState, action) => {
     switch(action.type) {
         case "START_REQUEST":
             return {...state, requesting: true}
