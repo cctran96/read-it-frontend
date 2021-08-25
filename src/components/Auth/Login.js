@@ -14,7 +14,7 @@ const Login = ({ toggleLogin }) => {
 
     return (
         <div className="auth-container">
-            <IoMdClose size={30} onClick={toggleLogin}/>
+            <IoMdClose size={35} onClick={toggleLogin}/>
             <h1>Login</h1>
             <form>
                 <div className="input-container">
