@@ -29,7 +29,7 @@ const Navbar = () => {
     }
 
     const toggleSignup = () => {
-        setShowSignup(!showLogin)
+        setShowSignup(!showSignup)
         setShowLogin(false)
     }
 
@@ -62,7 +62,7 @@ const Navbar = () => {
             </> :
             <>
                 <button style={{background: "skyblue"}} onClick={toggleLogin}>Login</button>
-                <button style={{background: "silver"}}>Sign Up</button>
+                <button style={{background: "silver"}} onClick={toggleSignup}>Sign Up</button>
             </>
         )
     }
