@@ -28,7 +28,7 @@
     z-index: 2;
 }
 
-.nav-search {
+.input-container {
     display: flex;
     align-items: center;
     border: 1px solid black;
@@ -39,11 +39,11 @@
     margin-right: auto;
 }
 
-.nav-search svg {
-    margin-right: 2px;
+.input-container svg {
+    margin: 0 2px 0 2px;
 }
 
-.nav-search input {
+.input-container input {
     height: 30px;
     width: 100%;
     border: none;

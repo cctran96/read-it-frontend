@@ -33,9 +33,9 @@ const Navbar = () => {
         setShowLogin(false)
     }
 
+    const history = useHistory()
     const user = useSelector(state => state.user.user)
     const dispatch = useDispatch()
-    const history = useHistory()
     
     const handleResize = debounce(() => {
         const screenWidth = getWidth()
@@ -85,7 +85,7 @@ const Navbar = () => {
                         </div>
                     </> :
                     <>
-                        <div className="nav-search">
+                        <div className="input-container">
                             <GoSearch size={25}/>
                             <input value={search} placeholder="Search Read It" onChange={handleChange}/>
                         </div>
@@ -99,7 +99,7 @@ const Navbar = () => {
             {
                 showSearch ?
                 <div className="drop-search">
-                    <motion.div className="nav-search" initial="start" animate="end" variants={searchVar}>
+                    <motion.div className="input-container" initial="start" animate="end" variants={searchVar}>
                         <GoSearch size={25}/>
                         <input value={search} placeholder="Search Read It" onChange={handleChange}/>
                     </motion.div>

@@ -12,7 +12,22 @@
     flex-direction: column;
 }
 
+.auth-container h1 {
+    margin: 0 0 50px 50px;
+}
+
 .auth-container svg {
     margin-left: auto;
     margin-right: 10px;
+}
+
+.auth-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-container .input-container {
+    margin-top: 20px;
 }
