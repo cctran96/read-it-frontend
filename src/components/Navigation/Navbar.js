@@ -110,9 +110,9 @@ const Navbar = () => {
                 showLogin || showSignup ?
                 <div className="overlay">
                     {
-                        showLogin ? <Login toggleLogin={toggleLogin}/> :
+                        showLogin ? <Login toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> :
                         (
-                            showSignup ? <Signup toggleSignup={toggleSignup}/> : null
+                            showSignup ? <Signup toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> : null
                         )
                     }
                 </div>

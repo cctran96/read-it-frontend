@@ -1,15 +1,36 @@
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt } from "react-icons/fa"
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi"
+import { GoogleLogin } from "react-google-login"
+import { FcGoogle } from "react-icons/fc"
 
-const Login = ({ toggleLogin }) => {
-    const emptyFields = {username: "", password: ""}
+const Login = ({ toggleLogin, toggleSignup }) => {
+    const dispatch = useDispatch()
+    const emptyFields = {email: "", password: ""}
+
     const [login, setLogin] = useState(emptyFields)
 
     const handleChange = e => {
         setLogin({...login, [e.target.name]: e.target.value})
+    }
+
+    const googleSuccess = async res => {
+        const result = res?.profileObj
+        const token = res?.tokenId
+
+        try {
+            dispatch({ type: "AUTH", data: { result, token} })
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    const googleFailure = error => {
+        console.log(error)
+        console.log("Google signin unsuccessful")
     }
 
     return (
@@ -21,9 +42,9 @@ const Login = ({ toggleLogin }) => {
                     <FaUserAlt size={20}/>
                     <input 
                         onChange={handleChange}
-                        placeholder="Username" 
-                        value={login.username} 
-                        name="username" 
+                        placeholder="Email" 
+                        value={login.email} 
+                        name="email" 
                         required
                     />
                 </div>
@@ -39,6 +60,24 @@ const Login = ({ toggleLogin }) => {
                     />
                 </div>
             </form>
+            <div className="social-login">
+                <GoogleLogin
+                    clientId="261381993122-7vs1h50qbqhjuuriv8ef4vqat5m13b50.apps.googleusercontent.com"
+                    onSuccess={googleSuccess}
+                    onFailure={googleFailure}
+                    cookiePolicy="single_host_origin"
+                    render={renderProps => (
+                        <button onClick={renderProps.onClick}>
+                            <FcGoogle size={25}/>
+                            Continue With Google
+                        </button>
+                    )}
+                />
+            </div>
+            <div className="login-switch">
+                <p>Don't have an account?</p>
+                <p onClick={toggleSignup} style={{color: "blue", cursor: "pointer"}}>Sign up</p>
+            </div>
         </div>
     )
 }
