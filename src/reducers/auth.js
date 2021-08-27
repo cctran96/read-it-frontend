@@ -1,18 +1,18 @@
 const initialState = {
     user: false,
-    requesting: false,
     errors: false
 }
 
-export const user = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "START_REQUEST":
-            return {...state, requesting: true}
-        case "LOGIN":
-            return {...state, user: action.user, errors: false, requesting: false}
+        case "AUTH":
+            console.log(action)
+            return {...state, user: action.data}
         case "ERROR":
             return {...state, errors: action.errors, requesting: false}
         default:
             return state
     }
 }
+
+export default authReducer

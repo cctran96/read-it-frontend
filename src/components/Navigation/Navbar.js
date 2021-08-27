@@ -34,7 +34,7 @@ const Navbar = () => {
     }
 
     const history = useHistory()
-    const user = useSelector(state => state.user.user)
+    const user = useSelector(state => state.auth.user)
     const dispatch = useDispatch()
     
     const handleResize = debounce(() => {

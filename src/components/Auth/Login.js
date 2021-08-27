@@ -17,12 +17,17 @@ const Login = ({ toggleLogin, toggleSignup }) => {
         setLogin({...login, [e.target.name]: e.target.value})
     }
 
-    const googleSuccess = async res => {
-        const result = res?.profileObj
-        const token = res?.tokenId
+    const handleSubmit = e => {
+        e.preventDefault()
+        dispatch()
+    }
 
+    const googleSuccess = async res => {
+        const data = { result: res?.profileObj, token: res?.tokenId }
         try {
-            dispatch({ type: "AUTH", data: { result, token} })
+            dispatch({ type: "AUTH", data })
+            toggleLogin()
+            localStorage.setItem("profile", data)
         } catch(error) {
             console.log(error)
         }
