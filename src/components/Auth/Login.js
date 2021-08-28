@@ -47,7 +47,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
                     <FaUserAlt size={20}/>
                     <input 
                         onChange={handleChange}
-                        placeholder="Email" 
+                        placeholder="Email or Username" 
                         value={login.email} 
                         name="email" 
                         required

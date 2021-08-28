@@ -3,9 +3,10 @@ import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt } from "react-icons/fa"
 import { GiPadlock } from "react-icons/gi"
+import { MdEmail } from "react-icons/md"
 
 const Signup = ({ toggleLogin, toggleSignup }) => {
-    const emptyFields = {email: "", password: "", confirm: ""}
+    const emptyFields = {username: "", email: "", password: "", confirm: ""}
     const [signup, setSignup] = useState(emptyFields)
 
     const handleChange = e => {
@@ -19,6 +20,16 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
             <form>
                 <div className="input-container">
                     <FaUserAlt size={20}/>
+                    <input 
+                        onChange={handleChange}
+                        placeholder="Username" 
+                        value={signup.username} 
+                        name="username" 
+                        required
+                    />
+                </div>
+                <div className="input-container">
+                    <MdEmail size={20}/>
                     <input 
                         onChange={handleChange}
                         placeholder="Email" 
