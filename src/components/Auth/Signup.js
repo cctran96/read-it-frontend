@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { useDispatch } from "react-redux"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt } from "react-icons/fa"
@@ -6,11 +7,18 @@ import { GiPadlock } from "react-icons/gi"
 import { MdEmail } from "react-icons/md"
 
 const Signup = ({ toggleLogin, toggleSignup }) => {
+    const dispatch = useDispatch()
     const emptyFields = {username: "", email: "", password: "", confirm: ""}
+    
     const [signup, setSignup] = useState(emptyFields)
 
     const handleChange = e => {
         setSignup({...signup, [e.target.name]: e.target.value})
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        
     }
 
     return (
@@ -54,7 +62,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                     <input
                         onChange={handleChange}
                         placeholder="Confirm Password" 
-                        value={signup.password} 
+                        value={signup.confirm} 
                         name="confirm" 
                         type="password" 
                         required
