@@ -7,20 +7,28 @@ export const googleLogin = () => {
     }
 }
 
-export const fetchLogin = (body, history) => {
+export const fetchLogin = (body) => {
     return dispatch => {
-
+        const config = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+        }
     }
 }
 
 export const fetchStorage = () => {
     return dispatch => {
-
+        
     }
 }
 
-export const createAccount = (body, history) => {
+export const createAccount = (body) => {
     return dispatch => {
-
+        const config = {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(body)
+        }
     }
 }

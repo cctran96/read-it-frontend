@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
+import { createAccount } from "../../actions/authActions"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt } from "react-icons/fa"
@@ -9,7 +10,7 @@ import { MdEmail } from "react-icons/md"
 const Signup = ({ toggleLogin, toggleSignup }) => {
     const dispatch = useDispatch()
     const emptyFields = {username: "", email: "", password: "", confirm: ""}
-    
+
     const [signup, setSignup] = useState(emptyFields)
 
     const handleChange = e => {
@@ -18,14 +19,14 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        
+        dispatch(createAccount(signup))
     }
 
     return (
         <div className="auth-container">
             <IoMdClose size={35} onClick={toggleSignup}/>
             <h1>Sign up</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <FaUserAlt size={20}/>
                     <input 
@@ -68,6 +69,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         required
                     />
                 </div>
+                <input className="auth-submit" type="submit" value="Sign Up"/>
             </form>
             <div className="login-switch">
                 <p>Already have an account?</p>

@@ -6,10 +6,9 @@ const initialState = {
 const authReducer = (state = initialState, action) => {
     switch(action.type) {
         case "AUTH":
-            console.log(action)
             return {...state, user: action.data}
         case "ERROR":
-            return {...state, errors: action.errors, requesting: false}
+            return {...state, errors: action.errors}
         default:
             return state
     }

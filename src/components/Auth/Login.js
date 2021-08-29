@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useDispatch } from "react-redux"
+import { fetchLogin } from "../../actions/authActions"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt } from "react-icons/fa"
@@ -19,7 +20,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch()
+        dispatch(fetchLogin(login))
     }
 
     const googleSuccess = async res => {
@@ -42,7 +43,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
         <div className="auth-container">
             <IoMdClose size={35} onClick={toggleLogin}/>
             <h1>Login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div className="input-container">
                     <FaUserAlt size={20}/>
                     <input 
@@ -64,6 +65,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
                         required
                     />
                 </div>
+                <input className="auth-submit" type="submit" value="Log In"/>
             </form>
             <div className="social-login">
                 <GoogleLogin

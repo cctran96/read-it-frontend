@@ -29,7 +29,7 @@
 }
 
 .auth-container .input-container {
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .login-switch {
@@ -54,19 +54,24 @@
     margin-top: auto;
 }
 
-.social-login button {
+.social-login button, .auth-submit {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid black;
+    border: 1px solid black;
     border-radius: 5px;
     font-size: 15px;
     font-weight: bold;
     cursor: pointer;
-    background-color: skyblue;
+    background-color: rgba(135, 206, 235, 0.6);
 }
 
-.social-login button:hover {
-    background-color: rgba(192, 192, 192, 0.3);
+.social-login button:hover, .auth-submit:hover {
+    background-color: rgba(192, 192, 192, 0.5);
     transition: 0.3s ease-in-out;
+}
+
+.auth-submit {
+    background-color: whitesmoke;
+    padding: 3px;
 }
