@@ -20,15 +20,16 @@ const Login = ({ toggleLogin, toggleSignup }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch(fetchLogin(login))
+        dispatch(fetchLogin(login, toggleLogin))
     }
 
     const googleSuccess = async res => {
-        const data = { result: res?.profileObj, token: res?.tokenId }
+        const user = res?.profileObj
+        const token = res?.tokenId
         try {
-            dispatch({ type: "AUTH", data })
+            dispatch({ type: "AUTH", user })
             toggleLogin()
-            localStorage.setItem("profile", data)
+            localStorage.setItem("token", token)
         } catch(error) {
             console.log(error)
         }

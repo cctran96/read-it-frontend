@@ -19,7 +19,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch(createAccount(signup))
+        dispatch(createAccount(signup, toggleSignup))
     }
 
     return (
