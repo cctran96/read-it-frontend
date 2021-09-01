@@ -4,6 +4,8 @@
     border-bottom: 1px solid black;
     position: relative;
     z-index: 10;
+    background-color: white;
+    height: 54px;
 }
 
 .navbar svg {
@@ -26,7 +28,9 @@
     display: flex;
     align-items: center;
     width: 100%;
+    height: 100%;
     z-index: 2;
+    background-color: inherit;
 }
 
 .input-container {
@@ -86,4 +90,27 @@
     font-weight: bold;
     border-radius: 5px;
     border: 2px solid black;
+}
+
+.profile-menu {
+    position: absolute;
+    border: 1px solid black;
+    width: 200px;
+    height: 200px;
+    z-index: 1;
+    background-color: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-menu p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid black;
+    cursor: pointer;
 }

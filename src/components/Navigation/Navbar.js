@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react"
-import { useSelector, useDispatch } from "react-redux"
-import { motion } from "framer-motion"
-import { useHistory } from "react-router-dom"
-import { debounce } from "../../helpers/debounce"
+import book from "../../images/book.png"
+import "./styles.css"
 import { GoSearch, GoHome } from "react-icons/go"
 import { VscDiffAdded } from "react-icons/vsc"
 import { BsPerson } from "react-icons/bs"
-import book from "../../images/book.png"
-import Login from "../Auth/Login"
-import Signup from "../Auth/Signup"
-import "./styles.css"
+import { useSelector } from "react-redux"
+import { motion } from "framer-motion"
+import { useHistory } from "react-router-dom"
+import { debounce } from "../../helpers/debounce"
+import AuthMenu from "../../menus/AuthMenu"
+import ProfileMenu from "../../menus/ProfileMenu"
 
 const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
@@ -18,6 +18,7 @@ const Navbar = () => {
     const [showSearch, setShowSearch] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
     const [showSignup, setShowSignup] = useState(false)
+    const [showProfile, setShowProfile] = useState(false)
     const [collapse, setCollapse] = useState(width < 600)
     const [search, setSearch] = useState("")
 
@@ -33,9 +34,10 @@ const Navbar = () => {
         setShowLogin(false)
     }
 
+    const toggleProfile = () => setShowProfile(!showProfile)
+
     const history = useHistory()
     const user = useSelector(state => state.auth.user)
-    const dispatch = useDispatch()
     
     const handleResize = debounce(() => {
         const screenWidth = getWidth()
@@ -58,7 +60,7 @@ const Navbar = () => {
             user ?
             <>
                 <VscDiffAdded/>
-                <BsPerson/>
+                <BsPerson onClick={toggleProfile}/>
             </> :
             <>
                 <button style={{background: "skyblue"}} onClick={toggleLogin}>Login</button>
@@ -106,16 +108,21 @@ const Navbar = () => {
                 </div>
                 : null
             }
+            <AuthMenu 
+                user={user}
+                showLogin={showLogin}
+                showSignup={showSignup}
+                setShowLogin={setShowLogin}
+                setShowSignup={setShowSignup}
+            />
             {
-                showLogin || showSignup ?
-                <div className="overlay">
-                    {
-                        showLogin ? <Login toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> :
-                        (
-                            showSignup ? <Signup toggleLogin={toggleLogin} toggleSignup={toggleSignup}/> : null
-                        )
-                    }
-                </div>
+                showProfile ?                
+                <ProfileMenu
+                    collapse={collapse}
+                    history={history}
+                    showSearch={showSearch}
+                    setShowProfile={setShowProfile}
+                />
                 : null
             }
         </nav>

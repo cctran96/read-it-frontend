@@ -22,7 +22,7 @@ export const fetchLogin = (body, callback) => {
 export const fetchStorage = () => {
     return dispatch => {
         const token = localStorage.getItem("token")
-        if (token.length < 500) {
+        if (token?.length < 500) {
             const config = {
                 method: "GET",
                 headers: {
@@ -37,7 +37,7 @@ export const fetchStorage = () => {
                     dispatch({ type: "AUTH", user })
                 })
         } else {
-
+            
         }
     }
 }
@@ -63,5 +63,13 @@ export const createAccount = (body, callback) => {
                 }
             })
             .catch(error => console.error(error))
+    }
+}
+
+export const logOutAccount = (history) => {
+    return dispatch => {
+        dispatch({ type: "LOGOUT" })
+        history.push("/")
+        localStorage.removeItem("token")
     }
 }
