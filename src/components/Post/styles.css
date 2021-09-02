@@ -1,0 +1,100 @@
+.new-post-container {
+    height: calc(100% - 54px);
+    min-height: 500px;
+    width: 100%;
+}
+
+.post-creation {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 90%;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-heading {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.post-heading h1 {
+    font-size: 20px;
+}
+
+.post-heading h2 {
+    font-size: 15px;
+    margin-left: auto;
+}
+
+.post-types {
+    display: flex;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.post-creation svg {
+    width: 25px;
+    height: 25px;
+    margin-right: 3px;
+}
+
+.post-types div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25%;
+    height: 55px;
+    border-color: black;
+    text-align: center;
+    cursor: pointer;
+}
+
+.post-form-container {
+    border: 1px solid black;
+    border-top: none;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.post-form input {
+    height: 35px;
+    font-size: 15px;
+    margin-bottom: 15px;
+}
+
+.post-form textarea {
+    height: 100px;
+    font-size: 15px;
+    resize: vertical;
+}
+
+.post-form input:focus, .post-form textarea:focus, .community input:focus {
+    outline: none;
+}
+
+.community {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    min-width: 200px;
+    max-width: 250px;
+    border: 1px solid black;
+    margin-top: 15px;
+}
+
+.community input{
+    height: 35px;
+    font-size: 15px;
+    border: none;
+    border-left: 1px solid black;
+    width: 100%;
+}
