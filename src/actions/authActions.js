@@ -36,6 +36,7 @@ export const fetchStorage = () => {
                     const user = data.result
                     dispatch({ type: "AUTH", user })
                 })
+                .catch(() => localStorage.removeItem("token"))
         } else {
             
         }

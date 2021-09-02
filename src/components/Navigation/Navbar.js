@@ -114,6 +114,8 @@ const Navbar = () => {
                 showSignup={showSignup}
                 setShowLogin={setShowLogin}
                 setShowSignup={setShowSignup}
+                toggleLogin={toggleLogin}
+                toggleSignup={toggleSignup}
             />
             {
                 showProfile ?                

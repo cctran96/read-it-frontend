@@ -4,10 +4,12 @@ import { AiOutlineFileText, AiOutlinePicture, AiOutlineLink, AiOutlineSearch } f
 import { CgPoll } from "react-icons/cg"
 
 const Submit = () => {
-    const emptyFields = {title: "", context: "", community: ""}
+    const emptyFields = {title: "", context: "", community: "", type: "Post"}
+    const emptyPoll = {1: "", 2: ""}
 
     const [fields, setFields] = useState(emptyFields)
-    const [activeType, setActiveType] = useState("Post")
+    const [poll, setPoll] = useState(emptyPoll)
+    const pollKeys = Object.keys(poll)
 
     const handleChange = e => {
         e.preventDefault()
@@ -15,14 +17,42 @@ const Submit = () => {
     }
 
     const handlePostType = e => {
-        setActiveType(e.target.closest("div").innerText)
+        const type = e.target.closest("div").innerText
+        setFields({...fields, type })
     }
 
     const activeStyle = text => (
+        fields.type === text ?
         {
-            border: `${activeType === text ? "2px" : "1px" } solid black`
+            border: "2px solid black",
+            backgroundColor: "#e7e2e2"
+        } :
+        {
+            border: "1px solid black"
         }
     )
+
+    const handleSubmit = e => {
+        e.preventDefault()
+    }
+
+    const addOption = e => {
+        e.preventDefault()
+        const newOption = pollKeys.length + 1
+        if (newOption < 6) setPoll({...poll, [newOption]: ""})
+    }
+
+    const deleteOption = e => {
+        e.preventDefault()
+        const length = pollKeys.length
+        let newPoll = {...poll}
+         if (length > 2) delete newPoll[length]
+         setPoll(newPoll)
+    }
+
+    const handlePollOptions = e => {
+        setPoll({...poll, [e.target.name]: e.target.value})
+    }
 
     return (
         <div className="new-post-container">
@@ -59,9 +89,39 @@ const Submit = () => {
                     </div>
                 </div>
                 <div className="post-form-container">
-                    <form className="post-form">
+                    <form className="post-form" onSubmit={null}>
                         <input onChange={handleChange} name="title" value={fields.title} placeholder="Title"/>
-                        <textarea onChange={handleChange} name="context" value={fields.context} placeholder="Text (optional)"/>
+                        {
+                            fields.type === "Post" ?
+                            <textarea onChange={handleChange} name="context" value={fields.context} placeholder="Text (optional)"/> :
+                            (
+                                fields.type === "Images / Video" ?
+                                <div className="file-container">
+                                    <input type="file" name="file" style={{marginBottom: "5px"}}/>
+                                </div> :
+                                (
+                                    fields.type === "Link" ?
+                                    <input on onChange={handleChange} name="context" value={fields.context} placeholder="URL"/> :
+                                    <div className="poll-option-container">
+                                        {
+                                            pollKeys.map(option => 
+                                                <div key={option}>
+                                                    {option}. 
+                                                    <input 
+                                                        onChange={handlePollOptions} 
+                                                        name={option}
+                                                        value={poll[option]} 
+                                                        placeholder={`Option ${option}`}
+                                                    />
+                                                </div>)
+                                        }
+                                        <button className={pollKeys.length > 4 ? "inactive" : null} onClick={addOption}>Add Option</button>
+                                        <button className={pollKeys.length < 3 ? "inactive" : null} onClick={deleteOption}>Delete Option</button>
+                                    </div>
+                                )
+                            )
+                        }
+                        <button onClick={handleSubmit}>Submit</button>
                     </form>
                 </div>
             </div>
