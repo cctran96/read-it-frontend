@@ -35,10 +35,10 @@ const ProfileMenu = ({ collapse, showSearch, history, setShowProfile }) => {
             className="profile-menu" 
             style={collapse ? collapseStyle : style}
         >
-            <p></p>
-            <p></p>
-            <p></p>
-            <p></p>
+            <p>Profile</p>
+            <p>Create Post</p>
+            <p>Read It!</p>
+            <p>Settings</p>
             <p style={{border: "none"}} onClick={logout}>Logout</p>
         </motion.div>
     )
