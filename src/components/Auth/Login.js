@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux"
 import { fetchLogin } from "../../actions/authActions"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
-import { FaUserAlt } from "react-icons/fa"
+import { FaUserAlt, FaEyeSlash, FaEye } from "react-icons/fa"
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi"
 import { GoogleLogin } from "react-google-login"
 import { FcGoogle } from "react-icons/fc"
@@ -13,6 +13,11 @@ const Login = ({ toggleLogin, toggleSignup }) => {
     const emptyFields = {email: "", password: ""}
 
     const [login, setLogin] = useState(emptyFields)
+    const [showPass, setShowPass] = useState(false)
+
+    const togglePass = () => {
+        setShowPass(!showPass)
+    }
 
     const handleChange = e => {
         setLogin({...login, [e.target.name]: e.target.value})
@@ -56,15 +61,22 @@ const Login = ({ toggleLogin, toggleSignup }) => {
                     />
                 </div>
                 <div className="input-container">
-                    <GiPadlock size={20}/>
+                    {
+                        showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
+                    }
                     <input
                         onChange={handleChange}
                         placeholder="Password" 
                         value={login.password} 
                         name="password" 
-                        type="password" 
+                        type={showPass ? "text" : "password"} 
                         required
                     />
+                    {
+                        showPass ? 
+                        <FaEye onClick={togglePass} size={20} style={style}/> :
+                        <FaEyeSlash onClick={togglePass} size={20} style={style}/>
+                    }
                 </div>
                 <input className="auth-submit" type="submit" value="Log In"/>
             </form>
@@ -91,3 +103,8 @@ const Login = ({ toggleLogin, toggleSignup }) => {
 }
 
 export default Login
+
+const style ={
+    marginRight: "5px",
+    cursor:"pointer"
+}

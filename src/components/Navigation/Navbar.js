@@ -6,7 +6,7 @@ import { VscDiffAdded } from "react-icons/vsc"
 import { BsPerson } from "react-icons/bs"
 import { useSelector } from "react-redux"
 import { motion } from "framer-motion"
-import { useHistory } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 import { debounce } from "../../helpers/debounce"
 import AuthMenu from "../../menus/AuthMenu"
 import ProfileMenu from "../../menus/ProfileMenu"
@@ -37,6 +37,7 @@ const Navbar = () => {
     const toggleProfile = () => setShowProfile(!showProfile)
 
     const history = useHistory()
+    const location = useLocation()
     const user = useSelector(state => state.auth.user)
     
     const handleResize = debounce(() => {
@@ -55,11 +56,15 @@ const Navbar = () => {
         setSearch(e.target.value)
     }
 
+    const handleLocationCheck = loc => {
+        if (location.pathname !== loc) history.push(loc)
+    }
+
     const handleUser = () => {
         return (
             user ?
             <>
-                <VscDiffAdded/>
+                <VscDiffAdded onClick={() => handleLocationCheck("/submit")}/>
                 <BsPerson onClick={toggleProfile}/>
             </> :
             <>
@@ -79,7 +84,7 @@ const Navbar = () => {
                     collapse ?
                     <>
                         <div className="nav-icons" style={{marginLeft: "auto"}}>
-                            <GoHome onClick={() => history.push("/")}/>
+                            <GoHome onClick={() => handleLocationCheck("/")}/>
                             { handleUser() }
                         </div>
                         <div className="nav-button" onClick={toggleSearch}>
@@ -92,7 +97,7 @@ const Navbar = () => {
                             <input value={search} placeholder="Search Read It" onChange={handleChange}/>
                         </div>
                         <div className="nav-icons">
-                            <GoHome onClick={() => history.push("/")}/>
+                            <GoHome onClick={() => handleLocationCheck("/")}/>
                             { handleUser() }
                         </div>
                     </>
@@ -124,6 +129,7 @@ const Navbar = () => {
                     history={history}
                     showSearch={showSearch}
                     setShowProfile={setShowProfile}
+                    handleLocationCheck={handleLocationCheck}
                 />
                 : null
             }

@@ -5,7 +5,7 @@ import { CgPoll } from "react-icons/cg"
 
 const Submit = () => {
     const emptyFields = {title: "", context: "", community: "", type: "Post"}
-    const emptyPoll = {1: "", 2: ""}
+    const emptyPoll = {1: "", 2: "", 3: "", 4: ""}
 
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
@@ -34,6 +34,9 @@ const Submit = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        let data = {...fields}
+        if (fields.type === "Poll") data.context = poll
+        console.log(data)
     }
 
     const addOption = e => {
@@ -89,7 +92,7 @@ const Submit = () => {
                     </div>
                 </div>
                 <div className="post-form-container">
-                    <form className="post-form" onSubmit={null}>
+                    <form className="post-form" onSubmit={handleSubmit}>
                         <input onChange={handleChange} name="title" value={fields.title} placeholder="Title"/>
                         {
                             fields.type === "Post" ?
@@ -101,7 +104,7 @@ const Submit = () => {
                                 </div> :
                                 (
                                     fields.type === "Link" ?
-                                    <input on onChange={handleChange} name="context" value={fields.context} placeholder="URL"/> :
+                                    <input onChange={handleChange} name="context" value={fields.context} placeholder="URL"/> :
                                     <div className="poll-option-container">
                                         {
                                             pollKeys.map(option => 

@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux"
 import { createAccount } from "../../actions/authActions"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
-import { FaUserAlt } from "react-icons/fa"
-import { GiPadlock } from "react-icons/gi"
+import { FaUserAlt, FaEyeSlash, FaEye } from "react-icons/fa"
+import { GiPadlock, GiPadlockOpen } from "react-icons/gi"
 import { MdEmail } from "react-icons/md"
 
 const Signup = ({ toggleLogin, toggleSignup }) => {
@@ -12,6 +12,11 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
     const emptyFields = {username: "", email: "", password: "", confirm: ""}
 
     const [signup, setSignup] = useState(emptyFields)
+    const [showPass, setShowPass] = useState(false)
+
+    const togglePass = () => {
+        setShowPass(!showPass)
+    }
 
     const handleChange = e => {
         setSignup({...signup, [e.target.name]: e.target.value})
@@ -48,7 +53,9 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                     />
                 </div>
                 <div className="input-container">
-                    <GiPadlock size={20}/>
+                    {
+                        showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
+                    }
                     <input
                         onChange={handleChange}
                         placeholder="Password" 
@@ -57,9 +64,16 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         type="password" 
                         required
                     />
+                    {
+                        showPass ? 
+                        <FaEye onClick={togglePass} size={20} style={style}/> :
+                        <FaEyeSlash onClick={togglePass} size={20} style={style}/>
+                    }
                 </div>
                 <div className="input-container">
-                    <GiPadlock size={20}/>
+                    {
+                        showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
+                    }
                     <input
                         onChange={handleChange}
                         placeholder="Confirm Password" 
@@ -68,6 +82,11 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         type="password" 
                         required
                     />
+                    {
+                        showPass ? 
+                        <FaEye onClick={togglePass} size={20} style={style}/> :
+                        <FaEyeSlash onClick={togglePass} size={20} style={style}/>
+                    }
                 </div>
                 <input className="auth-submit" type="submit" value="Sign Up"/>
             </form>
@@ -80,3 +99,8 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
 }
 
 export default Signup
+
+const style ={
+    marginRight: "5px",
+    cursor:"pointer"
+}

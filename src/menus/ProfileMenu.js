@@ -3,7 +3,7 @@ import { motion } from "framer-motion"
 import { logOutAccount } from "../actions/authActions"
 import { useDispatch } from "react-redux"
 
-const ProfileMenu = ({ collapse, showSearch, history, setShowProfile }) => {
+const ProfileMenu = ({ collapse, showSearch, history, setShowProfile, handleLocationCheck }) => {
     const dispatch = useDispatch()
 
     const style = {
@@ -27,6 +27,11 @@ const ProfileMenu = ({ collapse, showSearch, history, setShowProfile }) => {
         setShowProfile(false)
     }
 
+    const handleNewPost = () => {
+        handleLocationCheck("/submit")
+        setShowProfile(false)
+    }
+
     return (
         <motion.div 
             initial="start"
@@ -36,7 +41,7 @@ const ProfileMenu = ({ collapse, showSearch, history, setShowProfile }) => {
             style={collapse ? collapseStyle : style}
         >
             <p>Profile</p>
-            <p>Create Post</p>
+            <p onClick={handleNewPost}>Create Post</p>
             <p>Read It!</p>
             <p>Settings</p>
             <p style={{border: "none"}} onClick={logout}>Logout</p>

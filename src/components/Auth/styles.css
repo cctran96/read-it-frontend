@@ -32,6 +32,11 @@
     margin-bottom: 20px;
 }
 
+.auth-container .input-container svg {
+    margin-right: 0;
+    cursor: default;
+}
+
 .login-switch {
     display: flex;
     align-items: center;
