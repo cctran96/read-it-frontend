@@ -1,11 +1,12 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Route } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { BrowserRouter as Router, Redirect, Route } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import Navbar from "./components/Navigation/Navbar"
 import Submit from "./components/Post/Submit"
 
 const App = () => {
+    const user = useSelector(state => state.auth.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -16,7 +17,11 @@ const App = () => {
         <div className="web-container">
             <Router>
                 <Navbar/>
-                <Route exact path="/submit" render={() => <Submit/>}/>
+                <Route exact path="/submit">
+                    {
+                        user ? <Submit/> : <Redirect to="/"/>
+                    }
+                </Route>
             </Router>
         </div>
     )
