@@ -16,6 +16,7 @@ const Submit = () => {
     const dispatch = useDispatch()
     const history = useHistory()
     const user = useSelector(state => state.auth.user)
+    const posts = useSelector(state => state.posts.posts)
 
     const handleChange = e => {
         e.preventDefault()
@@ -42,7 +43,7 @@ const Submit = () => {
         e.preventDefault()
         let data = {...fields, creator: user._id}
         if (fields.type === "Poll") data.context = poll
-        dispatch(createPost(data, history))
+        dispatch(createPost(data, history, posts))
     }
 
     const addOption = e => {

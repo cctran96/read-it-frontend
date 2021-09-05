@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import Navbar from "./components/Navigation/Navbar"
 import Submit from "./components/Post/Submit"
+import { getPosts } from "./actions/postActions"
 
 const App = () => {
     const user = useSelector(state => state.auth.user)
@@ -11,6 +12,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(fetchStorage())
+        dispatch(getPosts())
     }, [])
 
     return (
