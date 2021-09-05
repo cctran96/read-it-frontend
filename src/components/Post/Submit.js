@@ -2,6 +2,9 @@ import React, { useState } from "react"
 import "./styles.css"
 import { AiOutlineFileText, AiOutlinePicture, AiOutlineLink, AiOutlineSearch } from "react-icons/ai"
 import { CgPoll } from "react-icons/cg"
+import { useDispatch, useSelector } from "react-redux"
+import { createPost } from "../../actions/postActions"
+import { useHistory } from "react-router-dom"
 
 const Submit = () => {
     const emptyFields = {title: "", context: "", community: "", type: "Post"}
@@ -10,6 +13,9 @@ const Submit = () => {
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
     const pollKeys = Object.keys(poll)
+    const dispatch = useDispatch()
+    const history = useHistory()
+    const user = useSelector(state => state.auth.user)
 
     const handleChange = e => {
         e.preventDefault()
@@ -34,9 +40,9 @@ const Submit = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        let data = {...fields}
+        let data = {...fields, creator: user._id}
         if (fields.type === "Poll") data.context = poll
-        console.log(data)
+        dispatch(createPost(data, history))
     }
 
     const addOption = e => {
