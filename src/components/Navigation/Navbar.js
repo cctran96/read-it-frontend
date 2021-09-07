@@ -125,6 +125,7 @@ const Navbar = () => {
             {
                 showProfile ?                
                 <ProfileMenu
+                    user={user}
                     collapse={collapse}
                     history={history}
                     showSearch={showSearch}

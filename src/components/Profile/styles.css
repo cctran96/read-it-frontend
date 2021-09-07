@@ -1,0 +1,14 @@
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 54px);
+    border: 1px solid blue;
+}
+
+.profile-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
