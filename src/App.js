@@ -12,7 +12,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(fetchStorage())
-    })
+    }, [])
 
     return (
         <div className="web-container">
