@@ -76,9 +76,9 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <a className="logo" href="/">
+            <div className="logo" onClick={() => handleLocationCheck("/")}>
                 <img src={book} alt="book"/>
-            </a>
+            </div>
             <div className="nav-items">
                 {
                     collapse ?

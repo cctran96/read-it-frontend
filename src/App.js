@@ -17,14 +17,10 @@ const App = () => {
     }, [])
 
     return (
-        <div className="web-container">
+        <div className="web-container"> {console.log(user)}
             <Router>
                 <Navbar/>
-                <Route exact path="/submit">
-                    {
-                        user ? <Submit/> : <Redirect to="/"/>
-                    }
-                </Route>
+                <Route exact path="/submit" render={() => <Submit/>}/>
                 <Route path="/user" render={() => <Profile/>}/>
             </Router>
         </div>
