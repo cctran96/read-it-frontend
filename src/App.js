@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import { fetchUsers } from "./actions/userActions"
 import Navbar from "./components/Navigation/Navbar"
-import Submit from "./components/Post/Submit"
-import Profile from "./components/Profile/Profile"
+import Submit from "./components/Post"
+import Profile from "./components/Profile"
+import Community from "./components/Community"
 
 const App = () => {
     const user = useSelector(state => state.auth.user)
@@ -21,7 +22,8 @@ const App = () => {
             <Router>
                 <Navbar/>
                 <Route exact path="/submit" render={() => <Submit/>}/>
-                <Route path="/user" render={() => <Profile/>}/>
+                <Route path="/u" render={() => <Profile/>}/>
+                <Route path="/r" render={() => <Community/>}/>
             </Router>
         </div>
     )
