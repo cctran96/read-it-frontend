@@ -28,7 +28,12 @@ const ProfileMenu = ({ collapse, showSearch, history, setShowProfile, handleLoca
     }
 
     const handleNewPost = () => {
-        handleLocationCheck("/submit")
+        handleLocationCheck("/r/submit")
+        setShowProfile(false)
+    }
+
+    const handleNewCommunity = () => {
+        handleLocationCheck("/r/community")
         setShowProfile(false)
     }
 
@@ -42,7 +47,7 @@ const ProfileMenu = ({ collapse, showSearch, history, setShowProfile, handleLoca
         >
             <p>Profile</p>
             <p onClick={handleNewPost}>Create Post</p>
-            <p>Read It!</p>
+            <p onClick={handleNewCommunity}>Community!</p>
             <p>Settings</p>
             <p style={{border: "none"}} onClick={logout}>Logout</p>
         </motion.div>

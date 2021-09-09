@@ -5,6 +5,7 @@ import { fetchStorage } from "./actions/authActions"
 import Navbar from "./components/Navigation/Navbar"
 import Submit from "./components/Post/Submit"
 import { getPosts } from "./actions/postActions"
+import Community from "./components/communities /Community"
 
 const App = () => {
     const user = useSelector(state => state.auth.user)
@@ -19,9 +20,14 @@ const App = () => {
         <div className="web-container">
             <Router>
                 <Navbar/>
-                <Route exact path="/submit">
+                <Route exact path="/r/submit">
                     {
                         user ? <Submit/> : <Redirect to="/"/>
+                    }
+                </Route>
+                <Route exact path= "r/community">
+                    {
+                        user ? <Community/> : <Redirect to="/"/>
                     }
                 </Route>
             </Router>

@@ -64,7 +64,7 @@ const Navbar = () => {
         return (
             user ?
             <>
-                <VscDiffAdded onClick={() => handleLocationCheck("/submit")}/>
+                <VscDiffAdded onClick={() => handleLocationCheck("/r/submit")}/>
                 <BsPerson onClick={toggleProfile}/>
             </> :
             <>
