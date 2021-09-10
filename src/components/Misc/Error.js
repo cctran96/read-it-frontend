@@ -6,7 +6,7 @@ const Error = () => {
 
     return (
         <div className="error-container">
-            <h1>Oops! User wasn't found.</h1>
+            <h1>Oops! Page not found.</h1>
             <p>Click <b onClick={() => history.push("/")}>here</b> to return home.</p>
         </div>
     )
