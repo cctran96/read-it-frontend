@@ -33,7 +33,8 @@ const ProfileMenu = ({ user, collapse, showSearch, history, setShowProfile, hand
     }
 
     const handleViewProfile = () => {
-        history.push(`/user/${user.username}`)
+        handleLocationCheck(`/user/${user.username}`)
+        setShowProfile(false)
     }
 
     return (
