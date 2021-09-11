@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
-import { BrowserRouter as Router, Redirect, Route } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import { useDispatch } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import { fetchUsers } from "./actions/userActions"
 import Navbar from "./components/Navigation/Navbar"
@@ -9,16 +9,15 @@ import Profile from "./components/Profile"
 import Community from "./components/Community"
 
 const App = () => {
-    const user = useSelector(state => state.auth.user)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(fetchStorage())
         dispatch(fetchUsers())
-    }, [])
+    }, [dispatch])
 
     return (
-        <div className="web-container"> {console.log(user)}
+        <div className="web-container">
             <Router>
                 <Navbar/>
                 <Route exact path="/submit" render={() => <Submit/>}/>

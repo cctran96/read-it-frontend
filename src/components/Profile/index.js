@@ -9,7 +9,7 @@ const Profile = () => {
     const [user, setUser] = useState(null)
 
     const users = useSelector(state => state.users.users)
-    const path = useLocation().pathname.slice(6)
+    const path = useLocation().pathname.slice(3)
 
     useEffect(() => { 
         if (users.length) setUser(users.find(u => u.username === path))
