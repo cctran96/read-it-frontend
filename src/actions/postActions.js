@@ -12,7 +12,7 @@ export const createPost = (body, history) => {
             body: JSON.stringify(body)
         }
         fetch(url, config)
-        .then(resp => resp.json())
+        .then(res => res.json())
         .then(data => console.log(data))
     }
 }
