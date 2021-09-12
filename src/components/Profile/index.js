@@ -21,7 +21,7 @@ const Profile = () => {
             let foundUser = users.find(u => u.username === path)
 
             if (foundUser) {
-                fetch(url + foundUser._id)
+                fetch(url + foundUser.username)
                 .then(res => res.json())
                 .then(data => {
                     setPosts(data)

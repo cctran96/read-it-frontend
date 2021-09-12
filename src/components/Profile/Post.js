@@ -9,7 +9,9 @@ const Post = ({ post }) => {
                 <ImArrowDown/>
             </div>
             <div className="post-content">
+                <p>r/{post.community} • Posted by {post.creator}</p>
                 <h1>{post.title}</h1>
+                <h2>{post.context}</h2>
             </div>
         </div>
     )
