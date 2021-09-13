@@ -80,6 +80,7 @@
 
 .post-content b:hover {
     border-bottom: 1px solid black;
+    cursor: pointer;
 }
 
 .post-content p {
