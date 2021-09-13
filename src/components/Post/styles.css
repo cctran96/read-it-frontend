@@ -131,3 +131,16 @@
 .inactive {
     background-color: gray !important;
 }
+
+.community-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.community-content button {
+    height: 35px;
+    margin-top: 15px;
+    cursor: pointer;
+}
+

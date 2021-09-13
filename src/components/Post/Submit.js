@@ -5,6 +5,7 @@ import { CgPoll } from "react-icons/cg"
 import { useDispatch, useSelector } from "react-redux"
 import { createPost } from "../../actions/postActions"
 import { useHistory } from "react-router-dom"
+import CommunityForm from "../Community/CommunityForm"
 
 const Submit = () => {
     const emptyFields = {title: "", context: "", community: "", type: "Post"}
@@ -17,6 +18,7 @@ const Submit = () => {
     const history = useHistory()
     const user = useSelector(state => state.auth.user)
     const posts = useSelector(state => state.posts.posts)
+    const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
         e.preventDefault()
@@ -71,14 +73,17 @@ const Submit = () => {
                     <h1>Create a Post</h1>
                     <h2>DRAFTS </h2>
                 </div>
-                <div className="community">
-                    <AiOutlineSearch/>
-                    <input 
-                        name="community" 
-                        value={fields.community} 
-                        onChange={handleChange}
-                        placeholder="Community"
-                    />
+                <div className="community-content">
+                    <div className="community">
+                        <AiOutlineSearch/>
+                        <input 
+                            name="community" 
+                            value={fields.community} 
+                            onChange={handleChange}
+                            placeholder="Community"
+                        />
+                    </div>
+                    <button onClick={() => setCommunityFormShow(true)}>Create a Community!</button>
                 </div>
                 <div className="post-types">
                     <div onClick={handlePostType} style={activeStyle("Post")}>
@@ -138,6 +143,7 @@ const Submit = () => {
             <div className="post-sidebar">
 
             </div>
+            <CommunityForm communityFormShow={communityFormShow} setCommunityFormShow={setCommunityFormShow}/>
         </div>
     )
 }

@@ -5,7 +5,8 @@ import { fetchStorage } from "./actions/authActions"
 import Navbar from "./components/Navigation/Navbar"
 import Submit from "./components/Post/Submit"
 import { getPosts } from "./actions/postActions"
-import Community from "./components/communities /Community"
+import Community from "./components/Community/Community"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
     const user = useSelector(state => state.auth.user)
