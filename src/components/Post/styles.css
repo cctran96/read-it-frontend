@@ -132,7 +132,6 @@
     background-color: gray !important;
 }
 
-<<<<<<< HEAD
 .community-content {
     display: flex;
     justify-content: space-around;
@@ -145,7 +144,6 @@
     cursor: pointer;
 }
 
-=======
 .post-page-container {
     height: calc(100% - 54px);
     width: 100vw;
@@ -184,4 +182,3 @@
     margin-top: 20px;
     border: 1px solid black;
 }
->>>>>>> 1dd5dc48a79bed17ab025fffd9edea81ea995012

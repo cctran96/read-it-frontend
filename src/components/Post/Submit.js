@@ -43,7 +43,7 @@ const Submit = () => {
 
     const handleSubmit = e => {
         e.preventDefault()
-        let data = {...fields, creator: user._id}
+        let data = {...fields, creator: user.username}
         if (fields.type === "Poll") data.context = poll
         dispatch(createPost(data, history, posts))
     }
