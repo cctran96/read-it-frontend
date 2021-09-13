@@ -64,7 +64,7 @@ const Navbar = () => {
         return (
             user ?
             <>
-                <VscDiffAdded onClick={() => handleLocationCheck("/r/submit")}/>
+                <VscDiffAdded onClick={() => handleLocationCheck("/submit")}/>
                 <BsPerson onClick={toggleProfile}/>
             </> :
             <>
@@ -76,9 +76,9 @@ const Navbar = () => {
 
     return (
         <nav className="navbar">
-            <a className="logo" href="/">
+            <div className="logo" onClick={() => handleLocationCheck("/")}>
                 <img src={book} alt="book"/>
-            </a>
+            </div>
             <div className="nav-items">
                 {
                     collapse ?
@@ -125,6 +125,7 @@ const Navbar = () => {
             {
                 showProfile ?                
                 <ProfileMenu
+                    user={user}
                     collapse={collapse}
                     history={history}
                     showSearch={showSearch}

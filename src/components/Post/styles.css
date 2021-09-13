@@ -132,6 +132,7 @@
     background-color: gray !important;
 }
 
+<<<<<<< HEAD
 .community-content {
     display: flex;
     justify-content: space-around;
@@ -144,3 +145,43 @@
     cursor: pointer;
 }
 
+=======
+.post-page-container {
+    height: calc(100% - 54px);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.post-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+.post-content-container {
+    display: flex;
+    border: 1px solid black;
+}
+
+.post-content-container .post-content {
+    padding: 5px;
+    cursor: default;
+}
+
+.post-content-container .post-content h1 {
+    margin: 0;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.post-comment-container {
+    min-height: 200px;
+    margin-top: 20px;
+    border: 1px solid black;
+}
+>>>>>>> 1dd5dc48a79bed17ab025fffd9edea81ea995012
