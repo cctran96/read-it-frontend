@@ -4,7 +4,8 @@ import { useDispatch } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import { fetchUsers } from "./actions/userActions"
 import Navbar from "./components/Navigation/Navbar"
-import Submit from "./components/Post"
+import Submit from "./components/Post/Submit"
+import Post from "./components/Post"
 import Profile from "./components/Profile"
 import Community from "./components/Community"
 
@@ -21,6 +22,7 @@ const App = () => {
             <Router>
                 <Navbar/>
                 <Route exact path="/submit" render={() => <Submit/>}/>
+                <Route path="/p" render={() => <Post/>}/>
                 <Route path="/u" render={() => <Profile/>}/>
                 <Route path="/r" render={() => <Community/>}/>
             </Router>

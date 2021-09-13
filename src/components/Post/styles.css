@@ -131,3 +131,9 @@
 .inactive {
     background-color: gray !important;
 }
+
+.post-page-container {
+    height: calc(100% - 54px);
+    display: flex;
+    flex-direction: column;
+}

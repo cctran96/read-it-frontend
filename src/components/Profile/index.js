@@ -86,7 +86,11 @@ const Profile = () => {
                                     return (
                                         <Post key={post._id} post={post}/>
                                     )
-                                }) : <h1 style={{marginTop: "auto", marginBottom: "auto"}}>No posts yet!</h1>
+                                }) : 
+                                (
+                                    posts === null ? null : 
+                                    <h1 style={{marginTop: "auto", marginBottom: "auto"}}>No posts yet!</h1>
+                                )
                             }
                         </div>
                     </div>
