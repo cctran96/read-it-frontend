@@ -73,7 +73,7 @@ const Submit = () => {
                     <h1>Create a Post</h1>
                     <h2>DRAFTS </h2>
                 </div>
-                <div className="community-content">
+                <div className="community-button">
                     <div className="community">
                         <AiOutlineSearch/>
                         <input 
