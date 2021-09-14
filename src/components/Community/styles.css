@@ -24,3 +24,21 @@
     width: 100px;
     margin-bottom: 15px;
 }
+
+.community {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    min-width: 200px;
+    max-width: 250px;
+    border: 1px solid black;
+    margin-top: 15px;
+}
+
+.community input{
+    height: 35px;
+    font-size: 15px;
+    border: none;
+    border-left: 1px solid black;
+    width: 100%;
+}

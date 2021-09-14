@@ -1,11 +1,14 @@
 const initialState = {
-    communities: []
+    communities: [],
+    community: null
 }
 
 const communityReducer = (state = initialState, action) => {
     switch(action.type) {
-        case "COMMUNITY": 
-            return {...state, posts: action.community}
+        case "COMMUNITIES": 
+            return {...state, communities: action.communities}
+        case "COMMUNITY":
+            return {...state, community: action.community}
         default:
             return state;
     }
