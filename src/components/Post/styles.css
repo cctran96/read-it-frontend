@@ -85,24 +85,6 @@
     outline: none;
 }
 
-.community {
-    display: flex;
-    align-items: center;
-    width: 40%;
-    min-width: 200px;
-    max-width: 250px;
-    border: 1px solid black;
-    margin-top: 15px;
-}
-
-.community input{
-    height: 35px;
-    font-size: 15px;
-    border: none;
-    border-left: 1px solid black;
-    width: 100%;
-}
-
 .post-form button {
     margin-left: auto;
     margin-right: 30px;
@@ -159,6 +141,7 @@
     width: 100%;
     max-width: 800px;
     margin-top: 20px;
+    padding: 20px;
 }
 
 .post-content-container {
@@ -180,5 +163,50 @@
 .post-comment-container {
     min-height: 200px;
     margin-top: 20px;
+    padding: 20px;
     border: 1px solid black;
+}
+
+.comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comment-form p {
+    font-size: 12px;
+    margin-top: 0;
+    margin-right: auto;
+    margin-left: 35px;
+}
+
+.comment-form textarea {
+    resize: vertical;
+    height: 150px;
+    width: 90%;
+    font-size: 15px;
+}
+
+.comment-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.sort-header {
+    font-size: 12px;
+    width: 100%;
+    border-bottom: 1px solid black;
+    padding-bottom: 5px;
+}
+
+.comment-section select {
+    margin-left: 5px;
+}
+
+.no-comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }

@@ -8,8 +8,8 @@ import Post from "./Post"
 
 const url = "http://localhost:5000/posts/user/"
 
-const Profile = () => {
-    const [user, setUser] = useState(null)
+const Profile = ({ user }) => {
+    const [profileUser, setUser] = useState(null)
     const [posts, setPosts] = useState(null)
     const [sortBy, setSortBy] = useState("recent")
 
@@ -50,10 +50,10 @@ const Profile = () => {
     return (
         <div className="profile-container">
             {   
-                user ? 
+                profileUser ? 
                 <>
                     <div className="profile-info">
-                        <h1>{user.username}</h1>
+                        <h1>{profileUser.username}</h1>
                     </div>
                     <div className="user-posts-container">
                         <div className="sort-bar">
@@ -96,7 +96,7 @@ const Profile = () => {
                     </div>
                 </> :
                 (
-                    user === null ? <Loading/> : <Error/>
+                    profileUser === null ? <Loading/> : <Error/>
                 )
             }
         </div>

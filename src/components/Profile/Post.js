@@ -1,5 +1,5 @@
 import React from "react"
-import { ImArrowUp, ImArrowDown } from "react-icons/im"
+import { TiArrowUpOutline, TiArrowDownOutline } from "react-icons/ti"
 import { useLocation, useHistory } from "react-router-dom"
 
 const Post = ({ post }) => {
@@ -13,8 +13,8 @@ const Post = ({ post }) => {
     return (
         <div className="post-card-container"> {console.log(post)}
             <div className="vote-container">
-                <ImArrowUp/>
-                <ImArrowDown/>
+                <TiArrowUpOutline/>
+                <TiArrowDownOutline/>
             </div>
             <div className="post-content" onClick={() => handleLocationCheck(`/p/${post._id}`)}>
                 <p>

@@ -7,7 +7,7 @@ import { createPost } from "../../actions/postActions"
 import { useHistory } from "react-router-dom"
 import CommunityForm from "../Community/CommunityForm"
 
-const Submit = () => {
+const Submit = ({ user }) => {
     const emptyFields = {title: "", context: "", community: "", type: "Post"}
     const emptyPoll = {1: "", 2: "", 3: "", 4: ""}
 
@@ -16,7 +16,6 @@ const Submit = () => {
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
-    const user = useSelector(state => state.auth.user)
     const posts = useSelector(state => state.posts.posts)
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
