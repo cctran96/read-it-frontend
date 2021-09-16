@@ -95,3 +95,11 @@
 .post-content h2 {
     font-size: 13px;
 }
+
+.upvote:hover {
+    color: orangered;
+}
+
+.downvote:hover {
+    color: royalblue;
+}

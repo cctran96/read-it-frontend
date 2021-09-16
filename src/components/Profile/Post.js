@@ -13,8 +13,8 @@ const Post = ({ post }) => {
     return (
         <div className="post-card-container"> {console.log(post)}
             <div className="vote-container">
-                <TiArrowUpOutline/>
-                <TiArrowDownOutline/>
+                <TiArrowUpOutline className="upvote"/>
+                <TiArrowDownOutline className="downvote"/>
             </div>
             <div className="post-content" onClick={() => handleLocationCheck(`/p/${post._id}`)}>
                 <p>
