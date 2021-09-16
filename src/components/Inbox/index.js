@@ -2,24 +2,31 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import "./styles.css"
 import Loading from "../Misc/Loading"
-
-const url = "http://localhost:5000/chat/"
+import { fetchChats, fetchMessages } from "../../actions/inboxActions"
 
 const Inbox = ({ user }) => {
+    const dispatch = useDispatch()
+
     const inbox = useSelector(state => state.inbox)
     const chats = inbox.chats
     const messages = inbox.messages
 
     useEffect(() => {
-        
-    }, [user])
+        if (user) dispatch(fetchChats(user))
+    }, [dispatch, user])
 
     return (
         <div className="inbox-container">
             {
-                chats === null || messages === null ?
+                chats === null ?
                 <Loading/> :
                 <>
+                    <div className="chats-container">
+
+                    </div>
+                    <div className="messages-container">
+
+                    </div>
                 </>
             }
         </div>
