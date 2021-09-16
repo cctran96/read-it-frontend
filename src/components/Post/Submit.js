@@ -142,7 +142,7 @@ const Submit = ({ user }) => {
             <div className="post-sidebar">
 
             </div>
-            <CommunityForm communityFormShow={communityFormShow} setCommunityFormShow={setCommunityFormShow} user={user}/>
+            <CommunityForm communityFormShow={communityFormShow} setCommunityFormShow={setCommunityFormShow} user={user} setFields={setFields} fields={fields}/>
         </div>
     )
 }

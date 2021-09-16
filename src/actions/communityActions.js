@@ -15,7 +15,7 @@ export const createCommunity = (body, allCommunities) => {
         .then(resp => resp.json())
         .then(data => {
             const communities = [...allCommunities, data]
-            dispatch({ type: 'COMMUNITIES', communities})
+            data.message ? dispatch({ type: 'COMMUNITYERROR', data}) : dispatch({ type: 'COMMUNITIES', communities})
         })
         .catch(error => console.log(error))
     }

@@ -1,6 +1,7 @@
 const initialState = {
     communities: [],
-    community: null
+    community: null,
+    error: null
 }
 
 const communityReducer = (state = initialState, action) => {
@@ -9,6 +10,8 @@ const communityReducer = (state = initialState, action) => {
             return {...state, communities: action.communities}
         case "COMMUNITY":
             return {...state, community: action.community}
+        case "COMMUNITYERROR":
+            return {...state, error: action.error}
         default:
             return state;
     }

@@ -3,7 +3,7 @@ import "./styles.css"
 import { createCommunity } from "../../actions/communityActions"
 import { useDispatch, useSelector } from "react-redux"
  
-const CommunityForm = ({ communityFormShow, setCommunityFormShow, user }) => {
+const CommunityForm = ({ communityFormShow, setCommunityFormShow, user, setFields, fields }) => {
 
     const dispatch = useDispatch();
     const communities = useSelector(state => state.communities.communities)
@@ -23,7 +23,9 @@ const CommunityForm = ({ communityFormShow, setCommunityFormShow, user }) => {
         e.preventDefault();
         const community = {...communityForm, creator: user._id}
         dispatch(createCommunity(community, communities))
+        setFields({...fields, community: community.name})
         setCommunityForm({name: "", image: ""})
+        setCommunityFormShow(false)
     }
 
     const closeForm = () => {
