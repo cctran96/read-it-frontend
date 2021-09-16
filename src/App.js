@@ -9,6 +9,7 @@ import Submit from "./components/Post/Submit"
 import Post from "./components/Post"
 import Profile from "./components/Profile"
 import Community from "./components/Community"
+import Inbox from "./components/Inbox"
 
 const App = () => {
     const dispatch = useDispatch()
@@ -25,6 +26,7 @@ const App = () => {
             <Router>
                 <Navbar user={user}/>
                 <Route exact path="/submit" render={() => <Submit user={user}/>}/>
+                <Route exact path="/inbox" render={() => <Inbox user={user}/>}/>
                 <Route path="/p" render={() => <Post user={user}/>}/>
                 <Route path="/u" render={() => <Profile user={user}/>}/>
                 <Route path="/r" render={() => <Community user={user}/>}/>

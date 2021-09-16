@@ -1,0 +1,5 @@
+.inbox-container {
+    display: flex;
+    border: 1px solid red;
+    height: calc(100% - 54px);
+}

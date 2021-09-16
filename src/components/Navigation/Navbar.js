@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import book from "../../images/book.png"
 import "./styles.css"
 import { GoSearch, GoHome } from "react-icons/go"
-import { VscDiffAdded } from "react-icons/vsc"
+import { VscDiffAdded, VscMail } from "react-icons/vsc"
 import { BsPerson } from "react-icons/bs"
 import { motion } from "framer-motion"
 import { useHistory, useLocation } from "react-router-dom"
@@ -63,6 +63,7 @@ const Navbar = ({ user }) => {
             user ?
             <>
                 <VscDiffAdded onClick={() => handleLocationCheck("/submit")}/>
+                <VscMail onClick={() => handleLocationCheck("/inbox")}/>
                 <BsPerson onClick={toggleProfile}/>
             </> :
             <>
