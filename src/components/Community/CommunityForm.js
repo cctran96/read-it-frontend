@@ -21,7 +21,7 @@ const CommunityForm = ({ communityFormShow, setCommunityFormShow, user, setField
 
     const handleSubmit = e => {
         e.preventDefault();
-        const community = {...communityForm, creator: user._id}
+        const community = {...communityForm, users: [user._id]}
         dispatch(createCommunity(community, communities))
         setFields({...fields, community: community.name})
         setCommunityForm({name: "", image: ""})
