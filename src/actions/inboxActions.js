@@ -1,9 +1,8 @@
 const chatURL = "http://localhost:5000/chats/"
 const msgURL = "http://localhost:5000/messages/"
+const token = localStorage.getItem("token")
 
-export const fetchChats = (user) => {
-    const token = localStorage.getItem("token")
-
+export const fetchChats = user => {
     const config = {
         method: "GET",
         headers: {
@@ -16,6 +15,26 @@ export const fetchChats = (user) => {
         fetch(chatURL + user._id, config)
         .then(res => res.json())
         .then(chats => {
+            dispatch({ type: "CHATS", chats})
+        })
+    }
+}
+
+export const createChat = (oldChats, body) => {
+    const config = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+    }
+
+    return dispatch => {
+        fetch(chatURL, config)
+        .then(res => res.json())
+        .then(data => {
+            const chats = [...oldChats, data]
             dispatch({ type: "CHATS", chats})
         })
     }

@@ -18,6 +18,7 @@ code {
 
 .web-container {
   height: 100vh;
+  position: relative;
 }
 
 .overlay {
@@ -56,4 +57,8 @@ code {
   margin: auto;
   height: 50px;
   width: 50px;
+}
+
+.error {
+  border: 1px solid red !important;
 }

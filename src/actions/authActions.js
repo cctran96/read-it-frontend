@@ -33,14 +33,17 @@ export const fetchStorage = () => {
             fetch(url + "signin", config)
                 .then(res => res.json())
                 .then(data => {
-                    if (data.errors) localStorage.removeItem("token")
+                    if (data.errors) {
+                        localStorage.removeItem("token")
+                        dispatch({ type: "AUTH", user: false })
+                    }
                     else {
                         const user = data.result
                         dispatch({ type: "AUTH", user })
                     }
                 })
                 .catch(error => console.log(error))
-        }
+        } else dispatch({ type: "AUTH", user: false })
     }
 }
 
