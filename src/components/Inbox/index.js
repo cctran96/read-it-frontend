@@ -13,8 +13,6 @@ const Inbox = ({ user }) => {
     const [search, setSearch] = useState("")
     const [filteredChats, setFilteredChats] = useState(null)
     const [showModal, setShowModal] = useState(false)
-    const [message, setMessage] = useState(null)
-    
 
     const dispatch = useDispatch()
 
@@ -24,10 +22,9 @@ const Inbox = ({ user }) => {
 
     useEffect(() => {
         if (user) {
-            dispatch(fetchChats(user))
-            setFilteredChats(chats)
+            dispatch(fetchChats(user, setFilteredChats))
         }
-    }, [dispatch, user, chats])
+    }, [dispatch, user])
 
     const handleChange = e => setSearch(e.target.value)
 
@@ -63,7 +60,9 @@ const Inbox = ({ user }) => {
                             </div>
                         </div>
                         <div className="messages-container">
+                            {
 
+                            }
                         </div>
                     </>
                 ) : 

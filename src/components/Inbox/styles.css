@@ -155,5 +155,9 @@
     text-align: center; 
     margin: 0; 
     padding: 30px;
-    background-image: linear-gradient(to bottom, transparent, white);
+}
+
+.chats-container .active {
+    background-color: black;
+    color: white;
 }
