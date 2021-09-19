@@ -131,10 +131,29 @@
     height: 150px;
     border-bottom: 1px solid black;
     cursor: pointer;
+    overflow: hidden;
+    position: relative;
 }
 
 .chat-card h1 {
     font-size: 16px;
     align-self: center;
     text-align: center;
+}
+
+.chat-card p {
+    font-size: 14px;
+    margin-left: 2px;
+}
+
+.fade {
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    text-align: center; 
+    margin: 0; 
+    padding: 30px;
+    background-image: linear-gradient(to bottom, transparent, white);
 }

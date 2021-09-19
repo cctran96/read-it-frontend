@@ -5,6 +5,7 @@ import { fetchChats, fetchMessages } from "../../actions/inboxActions"
 import { BsPencil } from "react-icons/bs"
 import Loading from "../Misc/Loading"
 import Chat from "./Chat"
+import Message from "./Message"
 import Modal from "./Modal"
 import Error from "../Misc/Error"
 
@@ -12,6 +13,8 @@ const Inbox = ({ user }) => {
     const [search, setSearch] = useState("")
     const [filteredChats, setFilteredChats] = useState(null)
     const [showModal, setShowModal] = useState(false)
+    const [message, setMessage] = useState(null)
+    
 
     const dispatch = useDispatch()
 
