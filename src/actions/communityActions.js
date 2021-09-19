@@ -1,7 +1,7 @@
 const url = "http://localhost:5000/communities/"
 const token = localStorage.getItem('token')
 
-export const createCommunity = (body, allCommunities) => {
+export const createCommunity = (body, allCommunities, callback, functions) => {
     return dispatch => {
         const config = {
             method: "POST",
@@ -13,9 +13,14 @@ export const createCommunity = (body, allCommunities) => {
         }
         fetch(url, config)
         .then(resp => resp.json())
-        .then(data => {
-            const communities = [...allCommunities, data]
-            data.message ? dispatch({ type: 'COMMUNITYERROR', data}) : dispatch({ type: 'COMMUNITIES', communities})
+        .then(data => {  
+            if (data.message) {
+                typeof callback === "function" && callback(data.message) 
+            } else {
+                const communities = [...allCommunities, data]
+                dispatch({ type: 'COMMUNITIES', communities})
+                functions()
+            }
         })
         .catch(error => console.log(error))
     }
