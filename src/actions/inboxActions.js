@@ -15,6 +15,7 @@ export const fetchChats = (user) => {
         fetch(chatURL + user._id, config)
         .then(res => res.json())
         .then(chats => {
+            console.log("hi")
             dispatch({ type: "CHATS", chats})
             if (chats.length) dispatch({ type: "CHAT", chat: chats[0] })
         })
@@ -48,9 +49,9 @@ export const setActiveChat = chat => {
     }
 }
 
-export const fetchMessages = (id) => {
+export const fetchMessages = chat => {
     return dispatch => {
-        fetch(msgURL + id)
+        fetch(msgURL + chat._id)
         .then(res => res.json())
         .then(data => {
             console.log(data)

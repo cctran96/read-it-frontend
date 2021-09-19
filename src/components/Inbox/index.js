@@ -9,19 +9,25 @@ import Message from "./Message"
 import Modal from "./Modal"
 import Error from "../Misc/Error"
 
-const Inbox = ({ user }) => {
+const Inbox = () => {
     const [search, setSearch] = useState("")
     const [showModal, setShowModal] = useState(false)
 
     const dispatch = useDispatch()
 
+    const user = useSelector(state => state.auth.user)
     const inbox = useSelector(state => state.inbox)
     const chats = inbox.chats
+    const activeChat = inbox.chat
     const messages = inbox.messages
 
     useEffect(() => {
         if (user) dispatch(fetchChats(user))
     }, [dispatch, user])
+
+    useEffect(() => {
+        if (activeChat) dispatch(fetchMessages(activeChat))
+    }, [activeChat])
 
     const handleChange = e => setSearch(e.target.value)
 
@@ -58,8 +64,17 @@ const Inbox = ({ user }) => {
                         </div>
                         <div className="messages-container">
                             {
-
+                                messages ?
+                                messages.map(message => <Message key={message._id} message={message}/>) :
+                                <div className="empty-chats">
+                                    <p>Conversation has not started yet</p>
+                                    <p>Be the first the say something</p>
+                                </div>
                             }
+                            <form className="new-message">
+                                <input />
+                                <button type="submit"></button>
+                            </form>
                         </div>
                     </>
                 ) : 
