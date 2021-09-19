@@ -13,16 +13,35 @@ const Submit = ({ user }) => {
 
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
+    const [results, setResults] = useState([])
+    const [list, setList] = useState(false)
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
     const posts = useSelector(state => state.posts.posts)
+    const communities = useSelector(state => state.communities.communities)
+    const userCommunities = communities.filter(c => c.users !== user._id)
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
         e.preventDefault()
         setFields({...fields, [e.target.name]: e.target.value})
     }
+
+    const handleCommunityChange = (e) => {
+        let matches = []
+        if(e.target.value.length > 0) {
+            matches = userCommunities ? userCommunities.filter(c => c.name.toLowerCase().includes(e.target.value) ) : null
+        }
+            setResults(matches)
+            setFields({...fields, community: e.target.value})
+    }
+
+    const onResults = (e) => {
+        setFields({...fields, community: e});
+        setResults([]);
+    }
+
 
     const handlePostType = e => {
         const type = e.target.closest("div").innerText
@@ -78,10 +97,15 @@ const Submit = ({ user }) => {
                         <input 
                             name="community" 
                             value={fields.community} 
-                            onChange={handleChange}
+                            onChange={handleCommunityChange}
+                            onClick={() => setList(true)}
                             placeholder="Community"
+                            onBlur={() => {setTimeout(() => {setResults([])}, 100)}}
                         />
                     </div>
+                    {results && results.map((c, i) => 
+                        <div key={i} onClick={() => onResults(c.name)} style={{fontSize: "20px"}}>{c.name}</div>)
+                    }
                     <button onClick={() => setCommunityFormShow(true)}>Create a Community!</button>
                 </div>
                 <div className="post-types">
