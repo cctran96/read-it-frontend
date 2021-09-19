@@ -14,7 +14,7 @@ const Modal = ({ user, handleShowModal, chats }) => {
     const handleSubmit = e => {
         e.preventDefault()
         const foundUser = users.find(user => user.username === username)
-
+        
         if (foundUser && username !== user.username) {
             const body = {
                 title: `${user.username} & ${foundUser.username}`,
@@ -22,6 +22,7 @@ const Modal = ({ user, handleShowModal, chats }) => {
             }
 
             dispatch(createChat(chats, body))
+
 
             handleShowModal(false)
         } else if (username === user.username) setErrors("Cannot chat with yourself")

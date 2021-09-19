@@ -11,7 +11,6 @@ import Error from "../Misc/Error"
 
 const Inbox = ({ user }) => {
     const [search, setSearch] = useState("")
-    const [filteredChats, setFilteredChats] = useState(null)
     const [showModal, setShowModal] = useState(false)
 
     const dispatch = useDispatch()
@@ -21,9 +20,7 @@ const Inbox = ({ user }) => {
     const messages = inbox.messages
 
     useEffect(() => {
-        if (user) {
-            dispatch(fetchChats(user, setFilteredChats))
-        }
+        if (user) dispatch(fetchChats(user))
     }, [dispatch, user])
 
     const handleChange = e => setSearch(e.target.value)
@@ -46,11 +43,11 @@ const Inbox = ({ user }) => {
                             <div className="chats-container">
                                 { showModal ? <Modal user={user} handleShowModal={handleShowModal} chats={chats}/> : null }
                                 {
-                                    filteredChats == null ? 
+                                    chats == null ? 
                                     <Loading/> :
                                     (
-                                        filteredChats?.length ?
-                                        filteredChats.map(chat => <Chat key={chat._id} chat={chat}/>) :
+                                        chats?.length ?
+                                        chats.map(chat => <Chat key={chat._id} chat={chat}/>) :
                                         <div className="empty-chats">
                                             <p>No chats yet.</p>
                                             <p>Start a conversation!</p>

@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { setActiveChat } from "../../actions/inboxActions"
 
 const Chat = ({ chat }) => {
-    const [match, setMatch] = useState(null)
+    const dispatch = useDispatch()
     const active = useSelector(state => state.inbox.chat)
 
-    useEffect(() => {
-        if (chat?._id === active?._id) setMatch(true)
-    }, [active])
+    let match = chat?._id === active?._id
+
+    const handleClick = () => {
+        dispatch(setActiveChat(chat))
+    }
 
     return (
         <div 
             className={`chat-card ${match ? "active" : null}`}
+            onClick={handleClick}
         >
             <h1>{chat.title}</h1>
             <p>
