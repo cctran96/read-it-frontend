@@ -13,14 +13,14 @@ const Submit = ({ user }) => {
 
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
-    const [results, setResults] = useState([])
-    const [list, setList] = useState(false)
+    const [list, setList] = useState(null)
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
     const posts = useSelector(state => state.posts.posts)
     const communities = useSelector(state => state.communities.communities)
-    const userCommunities = communities.filter(c => c.users !== user._id)
+    let userCommunities = communities.filter(c => c.users !== user._id)
+    let filteredUserCommunities = userCommunities
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
@@ -28,18 +28,28 @@ const Submit = ({ user }) => {
         setFields({...fields, [e.target.name]: e.target.value})
     }
 
-    const handleCommunityChange = (e) => {
-        let matches = []
-        if(e.target.value.length > 0) {
-            matches = userCommunities ? userCommunities.filter(c => c.name.toLowerCase().includes(e.target.value) ) : null
+    const handleCommunityClick = (e) => {
+        if (e.target.closest("div").className === "community") {
+            setList(userCommunities) 
+        }else {
+            setList(null)
+            setFields({...fields, community: ""})
         }
-            setResults(matches)
-            setFields({...fields, community: e.target.value})
+    }
+
+    const handleCommunityChange = (e) => {
+        if(e.target.value.length > 0) {
+            let l = filteredUserCommunities.filter(c => c.name.toLowerCase().includes(e.target.value))
+            l.length ? setList(l) : setList(["no results found"])
+        }else {
+            setList(userCommunities)
+        }
+        setFields({...fields, community: e.target.value})
     }
 
     const onResults = (e) => {
         setFields({...fields, community: e});
-        setResults([]);
+        setList(null)
     }
 
 
@@ -85,7 +95,7 @@ const Submit = ({ user }) => {
     }
 
     return (
-        <div className="new-post-container">
+        <div className="new-post-container" onClick={fields.community ? null : handleCommunityClick}>
             <div className="post-creation">
                 <div className="post-heading">
                     <h1>Create a Post</h1>
@@ -98,14 +108,24 @@ const Submit = ({ user }) => {
                             name="community" 
                             value={fields.community} 
                             onChange={handleCommunityChange}
-                            onClick={() => setList(true)}
                             placeholder="Community"
-                            onBlur={() => {setTimeout(() => {setResults([])}, 100)}}
                         />
+                        { 
+                            list ?
+                                <div className="community-list" style={{bottom: `${-1 - list.length * 35}px`}}>
+                                    {
+                                        list.map((u) => {
+                                            return (
+                                                u.name ?
+                                                <div className="community-name" onClick={() => onResults(u.name)} key={u._id}>
+                                                    {u.name}
+                                                </div> : <div className="community-name">{u}</div>
+                                            )
+                                        }) 
+                                    }
+                                </div> : null
+                        }
                     </div>
-                    {results && results.map((c, i) => 
-                        <div key={i} onClick={() => onResults(c.name)} style={{fontSize: "20px"}}>{c.name}</div>)
-                    }
                     <button onClick={() => setCommunityFormShow(true)}>Create a Community!</button>
                 </div>
                 <div className="post-types">

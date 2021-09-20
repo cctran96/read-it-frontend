@@ -111,7 +111,25 @@
 }
 
 .inactive {
-    background-color: gray !important;
+    background-color: grey !important;
+}
+
+.community {
+    position: relative;
+}
+
+.community-list {
+    position: absolute;
+    background-color: white;
+    width: 101%;
+    left: -1px;
+}
+
+.community-name {
+    height: 35px;
+    border: 1px solid black;
+    border-top: none;
+    cursor: pointer;
 }
 
 .community-button {
