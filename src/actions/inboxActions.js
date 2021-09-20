@@ -5,17 +5,13 @@ const token = localStorage.getItem("token")
 export const fetchChats = (user) => {
     const config = {
         method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
-        }
+        headers: { "Authorization": `Bearer ${token}` }
     }
 
     return dispatch => {
         fetch(chatURL + user._id, config)
         .then(res => res.json())
         .then(chats => {
-            console.log("hi")
             dispatch({ type: "CHATS", chats})
             if (chats.length) dispatch({ type: "CHAT", chat: chats[0] })
         })
@@ -33,7 +29,6 @@ export const createChat = (oldChats, body) => {
     }
 
     return dispatch => {
-
         fetch(chatURL, config)
         .then(res => res.json())
         .then(data => {
@@ -50,11 +45,16 @@ export const setActiveChat = chat => {
 }
 
 export const fetchMessages = chat => {
+    const config = {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` },
+    }
+
     return dispatch => {
-        fetch(msgURL + chat._id)
+        fetch(msgURL + chat._id, config)
         .then(res => res.json())
-        .then(data => {
-            console.log(data)
+        .then(messages => {
+            dispatch({ type: "MESSAGES", messages })
         })
     }
 }

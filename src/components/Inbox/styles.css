@@ -171,4 +171,14 @@
     display: flex;
     width: 100%;
     margin-top: auto;
+    border: 1px solid blue;
+}
+
+.new-message input {
+    width: 90%;
+}
+
+.new-message button {
+    width: 10%;
+    min-width: 50px;
 }
