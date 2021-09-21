@@ -45,8 +45,8 @@ const Post = ({ user }) => {
                 <div className="post-container">
                     <div className="post-content-container">
                         <div className="vote-container">
-                            <TiArrowUpOutline/>
-                            <TiArrowDownOutline/>
+                            <TiArrowUpOutline className="upvote"/>
+                            <TiArrowDownOutline className="downvote"/>
                         </div>
                         <div className="post-content">
                             <p>
