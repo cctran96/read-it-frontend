@@ -33,6 +33,13 @@ const Inbox = ({ user }) => {
     }, [activeChat, dispatch])
 
     useEffect(() => {
+        socket.current = io("ws://localhost:8900")
+        socket.current.on("getMessage", data => {
+            setIncomingMsg(data.message)
+        })
+    }, [])
+
+    useEffect(() => {
         if (user) {
             socket.current.emit("addUser", user?._id)
             socket.current.on("getUsers", users => {
@@ -40,13 +47,6 @@ const Inbox = ({ user }) => {
             })
         }
     }, [user])
-
-    useEffect(() => {
-        socket.current = io("ws://localhost:8900")
-        socket.current.on("getMessage", data => {
-            setIncomingMsg(data.message)
-        })
-    }, [])
 
     const updateChat = (receiverId, message) => {
         socket.current.emit("sendMessage", {
@@ -60,7 +60,7 @@ const Inbox = ({ user }) => {
     const handleShowModal = () => setShowModal(!showModal)
 
     useEffect(() => {
-        if (messages?.length) {
+        if (messages?.length && incomingMsg) {
             if (incomingMsg.chat === activeChat._id) {
                 let newMessages = [...messages, incomingMsg]
                 dispatch({ type: "MESSAGES", messages: newMessages})
