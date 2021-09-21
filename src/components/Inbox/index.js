@@ -13,7 +13,7 @@ import MessageContainer from "./MessageContainer"
 const Inbox = ({ user }) => {
     const [search, setSearch] = useState("")
     const [showModal, setShowModal] = useState(false)
-    const [arrivalMsg, setArrivalMsg] = useState(null)
+    const [incomingMsg, setIncomingMsg] = useState(null)
 
     const socket = useRef()
 
@@ -36,7 +36,7 @@ const Inbox = ({ user }) => {
         if (user) {
             socket.current.emit("addUser", user?._id)
             socket.current.on("getUsers", users => {
-                
+                // console.log(users)
             })
         }
     }, [user])
@@ -44,20 +44,27 @@ const Inbox = ({ user }) => {
     useEffect(() => {
         socket.current = io("ws://localhost:8900")
         socket.current.on("getMessage", data => {
-            console.log(data)
+            setIncomingMsg(data.message)
         })
     }, [])
 
-    const updateChat = (receiverId, messageId) => {
+    const updateChat = (receiverId, message) => {
         socket.current.emit("sendMessage", {
             receiverId,
-            messageId
+            message
         })
     }
 
     const handleChange = e => setSearch(e.target.value)
 
     const handleShowModal = () => setShowModal(!showModal)
+
+    useEffect(() => {
+        if (messages?.length) {
+            let newMessages = [...messages, incomingMsg]
+            dispatch({ type: "MESSAGES", messages: newMessages})
+        }
+    }, [incomingMsg])
 
     return (
         <div className="page-container">

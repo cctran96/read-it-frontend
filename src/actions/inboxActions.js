@@ -87,9 +87,9 @@ export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText
                 dispatch({ type: "MSG_ERROR", error })
             } else {
                 const messages = [...oldMessages, message]
-                const receiverId = chat.users.find(user => user._id !== userId)._id
+                const receiverId = chat.users.find(id => id !== userId)
 
-                updateChat(receiverId, message._id)
+                updateChat(receiverId, message)
 
                 dispatch({ type: "MESSAGES", messages })
 
