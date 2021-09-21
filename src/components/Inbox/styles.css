@@ -2,7 +2,6 @@
     display: flex;
     justify-content: center;
     height: calc(100% - 54px);
-    overflow-y: hidden;
 }
 
 .inbox-container {
@@ -43,8 +42,6 @@
 .chats-container {
     overflow-y: scroll;
     height: calc(100% - 35px);
-    min-height: 470px;
-    height: 100px;
     position: relative;
 }
 
@@ -117,7 +114,9 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 150px;
+    min-height: 125px;
+    height: 25%;
+    max-height: 150px;
     border-bottom: 1px solid black;
     cursor: pointer;
     overflow: hidden;
@@ -133,6 +132,7 @@
 .chat-card p {
     font-size: 14px;
     margin-left: 2px;
+    margin-top: 5px;
 }
 
 .fade {
@@ -157,7 +157,6 @@
     width: 70%;
     max-width: 800px;
     height: 100%;
-    min-height: 500px;
     overflow-y: scroll;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
@@ -171,14 +170,23 @@
     display: flex;
     width: 100%;
     margin-top: auto;
-    border: 1px solid blue;
+    height: 35px;
 }
 
 .new-message input {
     width: 90%;
+    border: none;
+    outline: none;
+    border-top: 1px solid black;
+    font-size: 16px;
 }
 
 .new-message button {
     width: 10%;
     min-width: 50px;
+    border: 1px solid black;
+    border-bottom: none;
+    background-color: lightblue;
+    font-size: 16px;
+    cursor: pointer;
 }

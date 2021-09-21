@@ -1,7 +1,8 @@
 const initialState = {
     chats: null,
     chat: null,
-    messages: null
+    messages: null,
+    messageError: null
 }
 
 const inboxReducer = (state = initialState, action) => {
@@ -12,6 +13,8 @@ const inboxReducer = (state = initialState, action) => {
             return {...state, chat: action.chat}
         case "MESSAGES":
             return {...state, messages: action.messages}
+        case "MSG_ERROR":
+            return {...state, messageError: action.error}
         default:
             return state
     }

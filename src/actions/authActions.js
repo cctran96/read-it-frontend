@@ -7,6 +7,9 @@ export const fetchLogin = (body, callback) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(body)
         }
+
+        dispatch({ type: "USER_LOAD" })
+
         fetch(url + "signin", config)
             .then(res => res.json())
             .then(data => {
@@ -30,6 +33,9 @@ export const fetchStorage = () => {
                     "Authorization": `Bearer ${token}`
                 }
             }
+
+            dispatch({ type: "USER_LOAD" })
+
             fetch(url + "signin", config)
                 .then(res => res.json())
                 .then(data => {
@@ -54,6 +60,7 @@ export const createAccount = (body, callback) => {
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(body)
         }
+        
         fetch(url, config)
             .then(res => res.json())
             .then(data => {

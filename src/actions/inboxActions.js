@@ -5,7 +5,7 @@ const token = localStorage.getItem("token")
 export const fetchChats = (user) => {
     const config = {
         method: "GET",
-        headers: { "Authorization": `Bearer ${token}` }
+        headers: { Authorization: `Bearer ${token}` }
     }
 
     return dispatch => {
@@ -15,6 +15,7 @@ export const fetchChats = (user) => {
             dispatch({ type: "CHATS", chats})
             if (chats.length) dispatch({ type: "CHAT", chat: chats[0] })
         })
+        .catch(err => console.log(err))
     }
 }
 
@@ -23,7 +24,7 @@ export const createChat = (oldChats, body) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
         },
         body: JSON.stringify(body)
     }
@@ -35,6 +36,7 @@ export const createChat = (oldChats, body) => {
             const chats = [...oldChats, data]
             dispatch({ type: "CHATS", chats})
         })
+        .catch(err => console.log(err))
     }
 }
 
@@ -47,7 +49,7 @@ export const setActiveChat = chat => {
 export const fetchMessages = chat => {
     const config = {
         method: "GET",
-        headers: { "Authorization": `Bearer ${token}` },
+        headers: { Authorization: `Bearer ${token}` },
     }
 
     return dispatch => {
@@ -56,5 +58,44 @@ export const fetchMessages = chat => {
         .then(messages => {
             dispatch({ type: "MESSAGES", messages })
         })
+        .catch(err => console.log(err))
+    }
+}
+
+export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText) => {
+    const body = {
+        text: text,
+        sender: userId,
+        chat: chat._id
+    }
+
+    const config = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+    }
+
+    return dispatch => {
+        fetch(msgURL, config)
+        .then(res => res.json())
+        .then(message => {
+            if (message.error) {
+                const error = message.error
+                dispatch({ type: "MSG_ERROR", error })
+            } else {
+                const messages = [...oldMessages, message]
+                const receiverId = chat.users.find(user => user._id !== userId)._id
+
+                updateChat(receiverId, message._id)
+
+                dispatch({ type: "MESSAGES", messages })
+
+                setText("")
+            }
+        })
+        .catch(err => console.log(err))
     }
 }
