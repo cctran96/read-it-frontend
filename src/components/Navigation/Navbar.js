@@ -4,7 +4,6 @@ import "./styles.css"
 import { GoSearch, GoHome } from "react-icons/go"
 import { VscDiffAdded } from "react-icons/vsc"
 import { BsPerson } from "react-icons/bs"
-import { useSelector } from "react-redux"
 import { motion } from "framer-motion"
 import { useHistory, useLocation } from "react-router-dom"
 import { debounce } from "../../helpers/debounce"
@@ -13,7 +12,7 @@ import ProfileMenu from "../../menus/ProfileMenu"
 
 const getWidth = () => window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
     const [width, setWidth] = useState(getWidth())
     const [showSearch, setShowSearch] = useState(false)
     const [showLogin, setShowLogin] = useState(false)
@@ -38,7 +37,6 @@ const Navbar = () => {
 
     const history = useHistory()
     const location = useLocation()
-    const user = useSelector(state => state.auth.user)
     
     const handleResize = debounce(() => {
         const screenWidth = getWidth()

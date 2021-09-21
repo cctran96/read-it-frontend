@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { BrowserRouter as Router, Route } from "react-router-dom"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import { getPosts } from "./actions/postActions"
 import { fetchUsers } from "./actions/userActions"
@@ -12,21 +12,22 @@ import Community from "./components/Community"
 
 const App = () => {
     const dispatch = useDispatch()
+    const user = useSelector(state => state.auth.user)
 
     useEffect(() => {
         dispatch(fetchStorage())
         dispatch(getPosts())
         dispatch(fetchUsers())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="web-container">
             <Router>
-                <Navbar/>
-                <Route exact path="/submit" render={() => <Submit/>}/>
-                <Route path="/p" render={() => <Post/>}/>
-                <Route path="/u" render={() => <Profile/>}/>
-                <Route path="/r" render={() => <Community/>}/>
+                <Navbar user={user}/>
+                <Route exact path="/submit" render={() => <Submit user={user}/>}/>
+                <Route path="/p" render={() => <Post user={user}/>}/>
+                <Route path="/u" render={() => <Profile user={user}/>}/>
+                <Route path="/r" render={() => <Community user={user}/>}/>
             </Router>
         </div>
     )
