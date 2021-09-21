@@ -13,14 +13,14 @@ const Submit = ({ user }) => {
 
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
-    const [list, setList] = useState(null)
+    const [showList, setShowList] = useState(false)
+    const [list, setList] = useState([])
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
     const posts = useSelector(state => state.posts.posts)
     const communities = useSelector(state => state.communities.communities)
-    let userCommunities = communities.filter(c => c.users !== user._id)
-    let filteredUserCommunities = userCommunities
+    let userCommunities = communities.filter(community => community.users.includes(user._id))
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
@@ -30,26 +30,23 @@ const Submit = ({ user }) => {
 
     const handleCommunityClick = (e) => {
         if (e.target.closest("div").className === "community") {
-            setList(userCommunities) 
+            setShowList(true)
+            setList(userCommunities.filter(community => community.name.includes(fields.community))) 
         }else {
-            setList(null)
-            setFields({...fields, community: ""})
+            setShowList(false)
         }
     }
 
     const handleCommunityChange = (e) => {
-        if(e.target.value.length > 0) {
-            let l = filteredUserCommunities.filter(c => c.name.toLowerCase().includes(e.target.value))
-            l.length ? setList(l) : setList(["no results found"])
-        }else {
-            setList(userCommunities)
-        }
+        setShowList(true)
+        let filteredUserCommunities = userCommunities.filter(community => community.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setList(filteredUserCommunities) 
         setFields({...fields, community: e.target.value})
     }
 
     const onResults = (e) => {
         setFields({...fields, community: e});
-        setList(null)
+        setShowList(null)
     }
 
 
@@ -95,7 +92,7 @@ const Submit = ({ user }) => {
     }
 
     return (
-        <div className="new-post-container" onClick={fields.community ? null : handleCommunityClick}>
+        <div className="new-post-container" onClick={handleCommunityClick}>
             <div className="post-creation">
                 <div className="post-heading">
                     <h1>Create a Post</h1>
@@ -111,22 +108,22 @@ const Submit = ({ user }) => {
                             placeholder="Community"
                         />
                         { 
-                            list ?
+                            showList ?
                                 <div className="community-list" style={{bottom: `${-1 - list.length * 35}px`}}>
-                                    {
-                                        list.map((u) => {
+                                    {   
+                                        list.length ?
+                                        list.map((c) => {
                                             return (
-                                                u.name ?
-                                                <div className="community-name" onClick={() => onResults(u.name)} key={u._id}>
-                                                    {u.name}
-                                                </div> : <div className="community-name">{u}</div>
+                                                <div className="community-name" onClick={() => onResults(c.name)} key={c._id}>
+                                                    {c.name}
+                                                </div> 
                                             )
-                                        }) 
+                                        }) : <div className="no-results-found">no results found</div>
                                     }
                                 </div> : null
                         }
                     </div>
-                    <button onClick={() => setCommunityFormShow(true)}>Create a Community!</button>
+                    <button onClick={() => setCommunityFormShow(true)}>New Community!</button>
                 </div>
                 <div className="post-types">
                     <div onClick={handlePostType} style={activeStyle("Post")}>
