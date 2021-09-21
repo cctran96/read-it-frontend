@@ -61,8 +61,10 @@ const Inbox = ({ user }) => {
 
     useEffect(() => {
         if (messages?.length) {
-            let newMessages = [...messages, incomingMsg]
-            dispatch({ type: "MESSAGES", messages: newMessages})
+            if (incomingMsg.chat === activeChat._id) {
+                let newMessages = [...messages, incomingMsg]
+                dispatch({ type: "MESSAGES", messages: newMessages})
+            }
         }
     }, [incomingMsg])
 
