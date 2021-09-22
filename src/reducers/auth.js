@@ -1,6 +1,6 @@
 const initialState = {
-    user: false,
-    errors: false
+    user: null,
+    errors: null
 }
 
 const authReducer = (state = initialState, action) => {
@@ -9,8 +9,10 @@ const authReducer = (state = initialState, action) => {
             return {...state, user: action.user}
         case "ERROR":
             return {...state, errors: action.errors}
+        case "USER_LOAD":
+            return {...state, user: null}
         case "LOGOUT":
-            return initialState
+            return {...state, user: false}
         default:
             return state
     }
