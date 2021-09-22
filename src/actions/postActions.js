@@ -14,6 +14,7 @@ export const createPost = (body, history, allPosts) => {
         fetch(url, config)
         .then(resp => resp.json())
         .then(data => {
+            console.log(data.message)
             const posts = [...allPosts, data]
             dispatch({ type: 'POSTS', posts })
         })

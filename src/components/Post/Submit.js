@@ -13,16 +13,42 @@ const Submit = ({ user }) => {
 
     const [fields, setFields] = useState(emptyFields)
     const [poll, setPoll] = useState(emptyPoll)
+    const [showList, setShowList] = useState(false)
+    const [list, setList] = useState([])
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
     const posts = useSelector(state => state.posts.posts)
+    const communities = useSelector(state => state.communities.communities)
+    let userCommunities = communities.filter(community => community.users.includes(user._id))
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
         e.preventDefault()
         setFields({...fields, [e.target.name]: e.target.value})
     }
+
+    const handleCommunityClick = (e) => {
+        if (e.target.closest("div").className === "community") {
+            setShowList(true)
+            setList(userCommunities.filter(community => community.name.includes(fields.community))) 
+        }else {
+            setShowList(false)
+        }
+    }
+
+    const handleCommunityChange = (e) => {
+        setShowList(true)
+        let filteredUserCommunities = userCommunities.filter(community => community.name.toLowerCase().includes(e.target.value.toLowerCase()))
+        setList(filteredUserCommunities) 
+        setFields({...fields, community: e.target.value})
+    }
+
+    const onResults = (e) => {
+        setFields({...fields, community: e});
+        setShowList(null)
+    }
+
 
     const handlePostType = e => {
         const type = e.target.closest("div").innerText
@@ -66,23 +92,38 @@ const Submit = ({ user }) => {
     }
 
     return (
-        <div className="new-post-container">
+        <div className="new-post-container" onClick={handleCommunityClick}>
             <div className="post-creation">
                 <div className="post-heading">
                     <h1>Create a Post</h1>
                     <h2>DRAFTS </h2>
                 </div>
-                <div className="community-content">
+                <div className="community-button">
                     <div className="community">
                         <AiOutlineSearch/>
                         <input 
                             name="community" 
                             value={fields.community} 
-                            onChange={handleChange}
+                            onChange={handleCommunityChange}
                             placeholder="Community"
                         />
+                        { 
+                            showList ?
+                                <div className="community-list" style={{bottom: `${-1 - list.length * 35}px`}}>
+                                    {   
+                                        list.length ?
+                                        list.map((c) => {
+                                            return (
+                                                <div className="community-name" onClick={() => onResults(c.name)} key={c._id}>
+                                                    {c.name}
+                                                </div> 
+                                            )
+                                        }) : <div className="no-results-found">no results found</div>
+                                    }
+                                </div> : null
+                        }
                     </div>
-                    <button onClick={() => setCommunityFormShow(true)}>Create a Community!</button>
+                    <button onClick={() => setCommunityFormShow(true)}>New Community!</button>
                 </div>
                 <div className="post-types">
                     <div onClick={handlePostType} style={activeStyle("Post")}>
@@ -142,7 +183,7 @@ const Submit = ({ user }) => {
             <div className="post-sidebar">
 
             </div>
-            <CommunityForm communityFormShow={communityFormShow} setCommunityFormShow={setCommunityFormShow}/>
+            <CommunityForm communityFormShow={communityFormShow} setCommunityFormShow={setCommunityFormShow} user={user} setFields={setFields} fields={fields}/>
         </div>
     )
 }

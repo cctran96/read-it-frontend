@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { fetchStorage } from "./actions/authActions"
 import { getPosts } from "./actions/postActions"
 import { fetchUsers } from "./actions/userActions"
+import { getCommunities } from "./actions/communityActions"
 import Navbar from "./components/Navigation/Navbar"
 import Submit from "./components/Post/Submit"
 import Post from "./components/Post"
@@ -18,6 +19,7 @@ const App = () => {
         dispatch(fetchStorage())
         dispatch(getPosts())
         dispatch(fetchUsers())
+        dispatch(getCommunities())
     }, [dispatch])
 
     return (
