@@ -21,7 +21,7 @@ const Submit = ({ user }) => {
     const history = useHistory()
     const posts = useSelector(state => state.posts.posts)
     const communities = useSelector(state => state.communities.communities)
-    let userCommunities = communities.filter(community => community.users.includes(user._id))
+    let userCommunities = user ? communities.filter(community => community.users.includes(user._id)) : null
     const [communityFormShow, setCommunityFormShow] = useState(false)
 
     const handleChange = e => {
@@ -67,11 +67,16 @@ const Submit = ({ user }) => {
         }
     )
 
+    const resetFields = () => {
+        setFields(emptyFields)
+    }
+
     const handleSubmit = e => {
         e.preventDefault()
-        let data = {...fields, creator: user.username}
+        let community = communities.find(community => community.name === fields.community)
+        let data = {...fields, creator: user._id, community: community._id}
         if (fields.type === "Poll") data.context = poll
-        dispatch(createPost(data, history, posts, setErrors))
+        dispatch(createPost(data, history, posts, setErrors, resetFields))
     }
 
     const addOption = e => {

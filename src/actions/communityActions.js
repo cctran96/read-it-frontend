@@ -1,7 +1,7 @@
 const url = "http://localhost:5000/communities/"
 const token = localStorage.getItem('token')
 
-export const createCommunity = (body, allCommunities, callback, functions) => {
+export const createCommunity = (body, allCommunities, callback, resetFields) => {
     return dispatch => {
         const config = {
             method: "POST",
@@ -19,7 +19,7 @@ export const createCommunity = (body, allCommunities, callback, functions) => {
             } else {
                 const communities = [...allCommunities, data]
                 dispatch({ type: 'COMMUNITIES', communities})
-                functions()
+                typeof resetFields === "function" && resetFields();
             }
         })
         .catch(error => console.log(error))
