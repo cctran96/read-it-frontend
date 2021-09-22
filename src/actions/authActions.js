@@ -13,10 +13,14 @@ export const fetchLogin = (body, callback) => {
         fetch(url + "signin", config)
             .then(res => res.json())
             .then(data => {
-                const user = data.result
-                dispatch({ type: "AUTH", user })
-                localStorage.setItem("token", data.token)
-                typeof callback === "function" && callback()
+                if (data.error) {
+                    dispatch({ type: "ERROR", errors: data.error })
+                } else {
+                    const user = data.result
+                    dispatch({ type: "AUTH", user })
+                    localStorage.setItem("token", data.token)
+                    typeof callback === "function" && callback()
+                }
             })
             .catch(error => console.log(error))
     }

@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { createAccount } from "../../actions/authActions"
 import "./styles.css"
 import { IoMdClose } from "react-icons/io"
@@ -13,6 +13,8 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
 
     const [signup, setSignup] = useState(emptyFields)
     const [showPass, setShowPass] = useState(false)
+
+    const errors = useSelector(state => state.auth.errors) || {}
 
     const togglePass = () => {
         setShowPass(!showPass)
@@ -32,7 +34,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
             <IoMdClose size={35} onClick={toggleSignup}/>
             <h1>Sign up</h1>
             <form onSubmit={handleSubmit}>
-                <div className="input-container">
+                <div className={`input-container ${errors.username ? "error" : null}`}>
                     <FaUserAlt size={20}/>
                     <input 
                         onChange={handleChange}
@@ -42,7 +44,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         required
                     />
                 </div>
-                <div className="input-container">
+                <div className={`input-container ${errors.email ? "error" : null}`}>
                     <MdEmail size={20}/>
                     <input 
                         onChange={handleChange}
@@ -52,7 +54,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         required
                     />
                 </div>
-                <div className="input-container">
+                <div className={`input-container ${errors.password ? "error" : null}`}>
                     {
                         showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
                     }
@@ -70,7 +72,7 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         <FaEyeSlash onClick={togglePass} size={20} style={style}/>
                     }
                 </div>
-                <div className="input-container">
+                <div className={`input-container ${errors.password ? "error" : null}`}>
                     {
                         showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
                     }
@@ -88,6 +90,9 @@ const Signup = ({ toggleLogin, toggleSignup }) => {
                         <FaEyeSlash onClick={togglePass} size={20} style={style}/>
                     }
                 </div>
+                { errors.username ? <p style={{top: "18px"}}>{errors.username}</p> : null }
+                { errors.email ? <p style={{top: "75px"}}>{errors.email}</p> : null}
+                { errors.password ? <p style={{top: "188px"}}>{errors.password}</p> : null }
                 <input className="auth-submit" type="submit" value="Sign Up"/>
             </form>
             <div className="login-switch">

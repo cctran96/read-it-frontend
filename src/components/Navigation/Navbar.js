@@ -7,6 +7,7 @@ import { BsPerson } from "react-icons/bs"
 import { motion } from "framer-motion"
 import { useHistory, useLocation } from "react-router-dom"
 import { debounce } from "../../helpers/debounce"
+import { useDispatch } from "react-redux"
 import AuthMenu from "../../menus/AuthMenu"
 import ProfileMenu from "../../menus/ProfileMenu"
 
@@ -22,15 +23,19 @@ const Navbar = ({ user }) => {
     const [search, setSearch] = useState("")
 
     const toggleSearch = () => setShowSearch(!showSearch)
+    
+    const dispatch = useDispatch()
 
     const toggleLogin = () => {
         setShowLogin(!showLogin)
         setShowSignup(false)
+        dispatch({ type: "ERROR", errors: null })
     }
 
     const toggleSignup = () => {
         setShowSignup(!showSignup)
         setShowLogin(false)
+        dispatch({ type: "ERROR", errors: null })
     }
 
     const toggleProfile = () => setShowProfile(!showProfile)
