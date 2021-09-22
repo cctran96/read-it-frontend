@@ -61,6 +61,7 @@
 .post-form-container {
     border: 1px solid black;
     border-top: none;
+    position: relative;
 }
 
 .post-form {
@@ -69,10 +70,15 @@
     margin: 10px;
 }
 
+.post-form p {
+    position: absolute;
+    color: red;
+}
+
 .post-form input {
     height: 35px;
     font-size: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .post-form textarea {
@@ -95,6 +101,10 @@
     border-radius: 5px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.poll-option-container {
+    position: relative;
 }
 
 .poll-option-container, .file-container {
@@ -243,4 +253,8 @@
     width: 101%;
     background-color: white;
     left: -1px;
+}
+
+.error {
+    border: 2px solid red;
 }

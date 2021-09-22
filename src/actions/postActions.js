@@ -1,7 +1,7 @@
 const url = "http://localhost:5000/posts/"
 const token = localStorage.getItem('token')
 
-export const createPost = (body, history, allPosts) => {
+export const createPost = (body, history, allPosts, callback) => {
     return dispatch => {
         const config = {
             method: "POST",
@@ -14,9 +14,12 @@ export const createPost = (body, history, allPosts) => {
         fetch(url, config)
         .then(resp => resp.json())
         .then(data => {
-            console.log(data.message)
-            const posts = [...allPosts, data]
-            dispatch({ type: 'POSTS', posts })
+            if (data.errors) {
+                typeof callback === "function" && callback(data.errors)
+            }else {
+                const posts = [...allPosts, data]
+                dispatch({ type: 'POSTS', posts })
+            }
         })
         .catch(error => console.log(error))
     }

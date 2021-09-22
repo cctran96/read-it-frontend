@@ -15,6 +15,7 @@ const Submit = ({ user }) => {
     const [poll, setPoll] = useState(emptyPoll)
     const [showList, setShowList] = useState(false)
     const [list, setList] = useState([])
+    const [errors, setErrors] = useState({})
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
     const history = useHistory()
@@ -70,7 +71,7 @@ const Submit = ({ user }) => {
         e.preventDefault()
         let data = {...fields, creator: user.username}
         if (fields.type === "Poll") data.context = poll
-        dispatch(createPost(data, history, posts))
+        dispatch(createPost(data, history, posts, setErrors))
     }
 
     const addOption = e => {
@@ -99,7 +100,7 @@ const Submit = ({ user }) => {
                     <h2>DRAFTS </h2>
                 </div>
                 <div className="community-button">
-                    <div className="community">
+                    <div className={`community ${errors.community ? "error" : null}`}>
                         <AiOutlineSearch/>
                         <input 
                             name="community" 
@@ -123,6 +124,7 @@ const Submit = ({ user }) => {
                                 </div> : null
                         }
                     </div>
+                    {errors.community ? <p style={{color: "red"}}>{errors.community}</p> : null}
                     <button onClick={() => setCommunityFormShow(true)}>New Community!</button>
                 </div>
                 <div className="post-types">
@@ -145,18 +147,26 @@ const Submit = ({ user }) => {
                 </div>
                 <div className="post-form-container">
                     <form className="post-form" onSubmit={handleSubmit}>
-                        <input onChange={handleChange} name="title" value={fields.title} placeholder="Title"/>
+                        <input onChange={handleChange} name="title" value={fields.title} placeholder="Title" className={errors.title ? "error" : null}/>
+                        {errors.title ? <p style={{top: "29px"}}>{errors.title}</p> : null}
                         {
                             fields.type === "Post" ?
-                            <textarea onChange={handleChange} name="context" value={fields.context} placeholder="Text (optional)"/> :
+                            <>
+                                <textarea onChange={handleChange} name="context" value={fields.context} placeholder="Text (optional)" className={errors.context ? "error" : null}/>
+                                {errors.context ? <p style={{top: "150px"}}>{errors.context}</p> : null} 
+                            </>:
                             (
                                 fields.type === "Images / Video" ?
-                                <div className="file-container">
-                                    <input type="file" name="file" style={{marginBottom: "5px"}}/>
+                                <div className="file-container" className={errors.context ? "error" : null}>
+                                    <input type="file" name="file" style={{marginBottom: "5px"}} />
+                                    {errors.context ? <p style={{top: "90px"}}>Please choose a file to submit.</p> : null} 
                                 </div> :
                                 (
                                     fields.type === "Link" ?
-                                    <input onChange={handleChange} name="context" value={fields.context} placeholder="URL"/> :
+                                    <>
+                                        <input onChange={handleChange} name="context" value={fields.context} placeholder="URL" className={errors.context ? "error" : null}/> 
+                                        {errors.context ? <p style={{top: "85px"}}>Please provide a URL to submit</p> : null} 
+                                    </>:
                                     <div className="poll-option-container">
                                         {
                                             pollKeys.map(option => 
@@ -167,11 +177,13 @@ const Submit = ({ user }) => {
                                                         name={option}
                                                         value={poll[option]} 
                                                         placeholder={`Option ${option}`}
+                                                        className={errors.context ? "error" : null}
                                                     />
                                                 </div>)
                                         }
                                         <button className={pollKeys.length > 4 ? "inactive" : null} onClick={addOption}>Add Option</button>
                                         <button className={pollKeys.length < 3 ? "inactive" : null} onClick={deleteOption}>Delete Option</button>
+                                        {errors.context ? <p style={{bottom: "35px"}}>Please add atleast 2 options to do the poll.</p> : null} 
                                     </div>
                                 )
                             )
