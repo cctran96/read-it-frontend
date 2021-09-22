@@ -1,15 +1,17 @@
 import React, { useState } from "react"
+import "./styles.css"
 import { useDispatch } from "react-redux"
 import { fetchLogin } from "../../actions/authActions"
-import "./styles.css"
 import { IoMdClose } from "react-icons/io"
 import { FaUserAlt, FaEyeSlash, FaEye } from "react-icons/fa"
 import { GiPadlock, GiPadlockOpen } from "react-icons/gi"
 import { GoogleLogin } from "react-google-login"
 import { FcGoogle } from "react-icons/fc"
+import { useSelector } from "react-redux"
 
 const Login = ({ toggleLogin, toggleSignup }) => {
     const dispatch = useDispatch()
+    const errors = useSelector(state => state.auth.errors)
     const emptyFields = {email: "", password: ""}
 
     const [login, setLogin] = useState(emptyFields)
@@ -50,7 +52,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
             <IoMdClose size={35} onClick={toggleLogin}/>
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
-                <div className="input-container">
+                <div className={`input-container ${errors ? "error" : null}`}>
                     <FaUserAlt size={20}/>
                     <input 
                         onChange={handleChange}
@@ -60,7 +62,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
                         required
                     />
                 </div>
-                <div className="input-container">
+                <div className={`input-container ${errors ? "error" : null}`}>
                     {
                         showPass ? <GiPadlockOpen size={20}/> : <GiPadlock size={20}/>
                     }
@@ -79,6 +81,7 @@ const Login = ({ toggleLogin, toggleSignup }) => {
                     }
                 </div>
                 <input className="auth-submit" type="submit" value="Log In"/>
+                { errors ? <p style={{top: "75px"}}>{errors.both}</p> : null}
             </form>
             <div className="social-login">
                 <GoogleLogin

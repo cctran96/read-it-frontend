@@ -43,7 +43,7 @@ const Inbox = ({ user }) => {
         if (user) {
             socket.current.emit("addUser", user?._id)
             socket.current.on("getUsers", users => {
-                // console.log(users)
+                
             })
         }
     }, [user])

@@ -26,10 +26,16 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+}
+
+.auth-container form p {
+    color: red;
+    position: absolute;
 }
 
 .auth-container .input-container {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
 }
 
 .auth-container .input-container svg {
