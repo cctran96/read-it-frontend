@@ -61,12 +61,12 @@ const Inbox = ({ user }) => {
 
     useEffect(() => {
         if (messages?.length && incomingMsg) {
-            if (incomingMsg.chat === activeChat._id) {
+            if (incomingMsg?.chat === activeChat._id) {
                 let newMessages = [...messages, incomingMsg]
                 dispatch({ type: "MESSAGES", messages: newMessages})
             }
         }
-    }, [incomingMsg])
+    }, [dispatch, incomingMsg, messages, activeChat])
 
     return (
         <div className="page-container">
