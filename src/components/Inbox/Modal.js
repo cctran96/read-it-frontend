@@ -51,6 +51,7 @@ const Modal = ({ user, handleShowModal, chats }) => {
                     placeholder="Find user" 
                     required
                 />
+                <textarea/>
                 <button type="submit">Create Chat</button>
             </form>
         </motion.div>
