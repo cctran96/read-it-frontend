@@ -62,7 +62,7 @@ export const fetchMessages = chat => {
     }
 }
 
-export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText) => {
+export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText, oldChats) => {
     const body = {
         text: text,
         sender: userId,
@@ -81,17 +81,21 @@ export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText
     return dispatch => {
         fetch(msgURL, config)
         .then(res => res.json())
-        .then(message => {
-            if (message.error) {
-                const error = message.error
+        .then(data => {
+            if (data.error) {
+                const error = data.error
                 dispatch({ type: "MSG_ERROR", error })
             } else {
+                const message = data.message
                 const messages = [...oldMessages, message]
                 const receiverId = chat.users.find(id => id !== userId)
 
+                const chats = [...oldChats].map(chat => chat._id === message.chat ? data.chat : chat)
+                
                 updateChat(receiverId, message)
 
                 dispatch({ type: "MESSAGES", messages })
+                dispatch({ type: "CHATS", chats })
 
                 setText("")
             }

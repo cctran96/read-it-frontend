@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { sendMessage } from "../../actions/inboxActions"
 import Message from "./Message"
 
-const MessageContainer = ({ messages, updateChat, user, chat }) =>  {
+const MessageContainer = ({ messages, updateChat, user, chats, chat }) =>  {
     const [text, setText] = useState("")
 
     const dispatch = useDispatch()
@@ -11,7 +11,7 @@ const MessageContainer = ({ messages, updateChat, user, chat }) =>  {
 
     const handleSubmit = e => {
         e.preventDefault()
-        dispatch(sendMessage(user._id, chat, text, updateChat, messages, setText))
+        dispatch(sendMessage(user._id, chat, text, updateChat, messages, setText, chats))
     }
 
     const otherUserId = chat?.users.find(id => id !== user._id)

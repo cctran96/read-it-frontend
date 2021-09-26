@@ -5,6 +5,8 @@ import { setActiveChat } from "../../actions/inboxActions"
 const Chat = ({ chat }) => {
     const dispatch = useDispatch()
     const active = useSelector(state => state.inbox.chat)
+    const users = useSelector(state => state.users.users)
+    const user = chat.lastMessage ? users.find(user => user._id === chat.lastMessage.sender).username : null
 
     let match = chat?._id === active?._id
 
@@ -21,7 +23,7 @@ const Chat = ({ chat }) => {
             <p>
                 {
                     chat.lastMessage ?
-                    `${chat.lastMessage.sender}: ${chat.lastMessage.body}` : 
+                    `${user}: ${chat.lastMessage.text}` : 
                     "Conversation has not started yet"
                 }
             </p>

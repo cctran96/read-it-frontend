@@ -95,7 +95,7 @@ const Inbox = ({ user }) => {
                                 }
                             </div>
                         </div>
-                        <MessageContainer messages={messages} updateChat={updateChat} user={user} chat={activeChat}/>
+                        <MessageContainer messages={messages} updateChat={updateChat} user={user} chats={chats} chat={activeChat}/>
                     </>
                 ) : 
                 (
