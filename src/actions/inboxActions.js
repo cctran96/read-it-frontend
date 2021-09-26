@@ -92,7 +92,7 @@ export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText
 
                 const chats = [...oldChats].map(chat => chat._id === message.chat ? data.chat : chat)
                 
-                updateChat(receiverId, message)
+                updateChat(receiverId, message, data.chat)
 
                 dispatch({ type: "MESSAGES", messages })
                 dispatch({ type: "CHATS", chats })

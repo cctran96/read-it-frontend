@@ -35,7 +35,10 @@ const Inbox = ({ user }) => {
     useEffect(() => {
         socket.current = io("ws://localhost:8900")
         socket.current.on("getMessage", data => {
-            setIncomingMsg(data.message)
+            const message = data.message
+            const chat = data.chat
+
+            setIncomingMsg({ message, chat })
         })
     }, [])
 
@@ -48,10 +51,11 @@ const Inbox = ({ user }) => {
         }
     }, [user])
 
-    const updateChat = (receiverId, message) => {
+    const updateChat = (receiverId, message, chat) => {
         socket.current.emit("sendMessage", {
             receiverId,
-            message
+            message,
+            chat
         })
     }
 
@@ -61,12 +65,20 @@ const Inbox = ({ user }) => {
 
     useEffect(() => {
         if (messages?.length && incomingMsg) {
-            if (incomingMsg?.chat === activeChat._id) {
-                let newMessages = [...messages, incomingMsg]
+            const chat = incomingMsg.chat
+            const message = incomingMsg.message
+
+            if (message?.chat === activeChat._id) {
+                let newMessages = [...messages, message]
                 dispatch({ type: "MESSAGES", messages: newMessages})
             }
+
+            if (chat) {
+                const newChats = [...chats].map(oldChat => oldChat._id === chat._id ? chat : oldChat)
+                dispatch({ type: "CHATS", chats: newChats })
+            }
         }
-    }, [dispatch, incomingMsg, messages, activeChat])
+    }, [dispatch, incomingMsg])
 
     return (
         <div className="page-container">
