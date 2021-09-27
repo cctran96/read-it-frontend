@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { createChat } from "../../actions/inboxActions"
 
 const Modal = ({ user, handleShowModal, chats }) => {
-    const [username, setUsername] = useState("")
+    const [fields, setFields] = useState({ username: "", message: "" })
     const [error, setErrors] = useState(false)
 
     const dispatch = useDispatch()
@@ -13,6 +13,9 @@ const Modal = ({ user, handleShowModal, chats }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
+
+        const username = fields.username
+
         const foundUser = users.find(user => user.username === username)
         
         if (foundUser && username !== user.username) {
@@ -23,14 +26,13 @@ const Modal = ({ user, handleShowModal, chats }) => {
 
             dispatch(createChat(chats, body))
 
-
             handleShowModal(false)
         } else if (username === user.username) setErrors("Cannot chat with yourself")
         else setErrors("User not found")
     }
 
     const handleChange = e => {
-        setUsername(e.target.value)
+        setFields({...fields, [e.target.name]: e.target.value})
     }
 
     return (
@@ -47,11 +49,17 @@ const Modal = ({ user, handleShowModal, chats }) => {
                     className={error ? "error" : null}
                     onChange={handleChange}
                     name="username"
-                    value={username} 
+                    value={fields.username} 
                     placeholder="Find user" 
                     required
                 />
-                <textarea/>
+                <textarea 
+                    onChange={handleChange}
+                    name="message" 
+                    value={fields.message} 
+                    placeholder="What's on your mind?" 
+                    required
+                />
                 <button type="submit">Create Chat</button>
             </form>
         </motion.div>

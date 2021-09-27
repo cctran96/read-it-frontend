@@ -33,8 +33,11 @@ export const createChat = (oldChats, body) => {
         fetch(chatURL, config)
         .then(res => res.json())
         .then(data => {
-            const chats = [...oldChats, data]
-            dispatch({ type: "CHATS", chats})
+            const chat = data.chat
+
+            const chats = [...oldChats, chat]
+            dispatch({ type: "CHATS", chats })
+            dispatch({ type: "CHAT", chat })
         })
         .catch(err => console.log(err))
     }

@@ -60,7 +60,7 @@
     display: flex;
     flex-direction: column;
     width: 90%;
-    height: 125px;
+    height: 190px;
     margin-top: 1px;
     margin-left: auto;
     margin-right: auto;
@@ -83,13 +83,17 @@
     justify-content: center;
 }
 
-.chat-modal input {
-    margin-top: 10px;
+.chat-modal input, .chat-modal textarea {
+    margin-top: 5px;
     height: 30px;
     outline: none;
     font-size: 16px;
     width: 95%;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+.chat-modal textarea {
+    height: 80px;
 }
 
 .chat-modal button {
