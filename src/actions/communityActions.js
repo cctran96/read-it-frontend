@@ -38,7 +38,7 @@ export const getCommunities = () => {
 
 export const getCommunity = (id) => {
     return dispatch => {
-        fetch(`url/${id}`)
+        fetch(url + id)
         .then(resp => resp.json())
         .then(community => {
             dispatch({ type: 'COMMUNITY', community})

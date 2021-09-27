@@ -81,7 +81,7 @@ const Inbox = ({ user }) => {
     }, [dispatch, incomingMsg])
 
     return (
-        <div className="page-container">
+        <div className="page-container"> {console.log(chats)}
             {
                 user ? 
                 (

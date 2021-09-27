@@ -11,7 +11,11 @@ export const fetchChats = (user) => {
     return dispatch => {
         fetch(chatURL + user._id, config)
         .then(res => res.json())
-        .then(chats => {
+        .then(data => {
+            const chats = data.length ? data.sort((a,b) => {
+                return a.lastMessage.createdAt > b.lastMessage.createdAt ? -1 : 1
+            }) : []
+
             dispatch({ type: "CHATS", chats})
             if (chats.length) dispatch({ type: "CHAT", chat: chats[0] })
         })
@@ -35,7 +39,7 @@ export const createChat = (oldChats, body) => {
         fetch(chatURL, config)
         .then(res => res.json())
         .then(chat => {
-            const chats = [...oldChats, chat]
+            const chats = [chat, ...oldChats]
 
             dispatch({ type: "CHATS", chats })
             dispatch({ type: "CHAT", chat })
@@ -94,7 +98,8 @@ export const sendMessage = (userId, chat, text, updateChat, oldMessages, setText
                 const messages = [...oldMessages, message]
                 const receiverId = chat.users.find(id => id !== userId)
 
-                const chats = [...oldChats].map(chat => chat._id === message.chat ? data.chat : chat)
+                let chats = [...oldChats].map(chat => chat._id === message.chat ? data.chat : chat)
+                chats = chats.sort((a,b) => a.lastMessage.createdAt > b.lastMessage.createdAt ? -1 : 1)
                 
                 updateChat(receiverId, message, data.chat)
 
