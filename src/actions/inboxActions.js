@@ -29,13 +29,14 @@ export const createChat = (oldChats, body) => {
         body: JSON.stringify(body)
     }
 
+    console.log(body)
+
     return dispatch => {
         fetch(chatURL, config)
         .then(res => res.json())
-        .then(data => {
-            const chat = data.chat
-
+        .then(chat => {
             const chats = [...oldChats, chat]
+
             dispatch({ type: "CHATS", chats })
             dispatch({ type: "CHAT", chat })
         })

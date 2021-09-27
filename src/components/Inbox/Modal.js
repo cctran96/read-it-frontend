@@ -21,7 +21,11 @@ const Modal = ({ user, handleShowModal, chats }) => {
         if (foundUser && username !== user.username) {
             const body = {
                 title: `${user.username} & ${foundUser.username}`,
-                users: [user._id, foundUser._id]
+                users: [user._id, foundUser._id],
+                message: {
+                    text: fields.message,
+                    sender: user._id
+                }
             }
 
             dispatch(createChat(chats, body))
