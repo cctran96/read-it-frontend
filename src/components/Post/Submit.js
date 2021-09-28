@@ -6,8 +6,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { createPost } from "../../actions/postActions"
 import { useHistory } from "react-router-dom"
 import CommunityForm from "../Community/CommunityForm"
-import { videoOrImg } from "./Firebase"
-import { storage } from "@firebase/storage"
+import { storage } from "./Firebase"
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Submit = ({ user }) => {
@@ -95,20 +94,22 @@ const Submit = ({ user }) => {
 
     const handleSubmit = e => {
         e.preventDefault()
+        const storageRef = ref(storage, 'video-image'+fileName)
+        const uploadTask = uploadBytesResumable(storageRef, file)
         
-        // uploadTask.on('state_changed',
-        // snapshot => {},
-        // error => {
-        //     const newErrors = []
-        //     newErrors.push(error)
-        //     setErrors({...errors, fileError: newErrors})
-        // }, () => {
-        //     storage.ref('video-image').child(`${fileName}`)
-        //     .getDownloadURL()
-        //     .then(url => {
-        //         console.log(url)
-        //     })
-        // })
+        uploadTask.on('state_changed',
+        (snapshot) => {},
+        error => {
+            const newErrors = []
+            newErrors.push(error)
+            setErrors({...errors, fileError: newErrors})
+        }, () => {
+            // storage.ref('video-image').child(`${fileName}`)
+            getDownloadURL(uploadTask.snapshot.ref)
+            .then(url => {
+                console.log(url)
+            })
+        })
         // let community = communities.find(community => community.name === fields.community)
         // let data = {...fields, creator: user._id, community: community._id}
         // if (fields.type === "Poll") data.context = poll
