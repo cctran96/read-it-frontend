@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { createPost } from "../../actions/postActions"
 import { useHistory } from "react-router-dom"
 import CommunityForm from "../Community/CommunityForm"
-import { analytics } from "./Firebase"
+import { videoOrImg } from "./Firebase"
+import { storage } from "@firebase/storage"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Submit = ({ user }) => {
     const emptyFields = {title: "", context: "", community: "", type: "Post"}
@@ -16,6 +18,7 @@ const Submit = ({ user }) => {
     const [poll, setPoll] = useState(emptyPoll)
     const [showList, setShowList] = useState(false)
     const [list, setList] = useState([])
+    const [file, setFile] = useState(null)
     const [errors, setErrors] = useState({})
     const pollKeys = Object.keys(poll)
     const dispatch = useDispatch()
@@ -43,14 +46,14 @@ const Submit = ({ user }) => {
         const selectedFile = e.target.files[0]
         console.log(selectedFile)
         const fileExt = "image/png"
-        // const fileExt2 = "application/jpg"
+        const fileExt2 = "image/jpeg"
         // const videoExt = "application/mp4"
         const newErr = []
-        if (selectedFile.type !== fileExt ){
-            newErr.push("file must be a png file")
-            setFields({...fields, context: null})
+        if (selectedFile.type !== fileExt){
+            newErr.push("file must be a png, jpeg, or mp4 file")
+            setFile(null)
         }else {
-            setFields({...fields, context: selectedFile})
+            setFile(selectedFile)
         }
         setErrors(newErr)
     }
@@ -88,12 +91,28 @@ const Submit = ({ user }) => {
         setFields(emptyFields)
     }
 
+    const fileName = file ? file.name : null
+
     const handleSubmit = e => {
         e.preventDefault()
-        let community = communities.find(community => community.name === fields.community)
-        let data = fields.community ? {...fields, creator: user._id, community: community._id} : null
-        if (fields.type === "Poll") data.context = poll
-        dispatch(createPost(data, history, posts, setErrors, resetFields))
+        
+        // uploadTask.on('state_changed',
+        // snapshot => {},
+        // error => {
+        //     const newErrors = []
+        //     newErrors.push(error)
+        //     setErrors({...errors, fileError: newErrors})
+        // }, () => {
+        //     storage.ref('video-image').child(`${fileName}`)
+        //     .getDownloadURL()
+        //     .then(url => {
+        //         console.log(url)
+        //     })
+        // })
+        // let community = communities.find(community => community.name === fields.community)
+        // let data = {...fields, creator: user._id, community: community._id}
+        // if (fields.type === "Poll") data.context = poll
+        // dispatch(createPost(data, history, posts, setErrors, resetFields))
     }
 
     const addOption = e => {
