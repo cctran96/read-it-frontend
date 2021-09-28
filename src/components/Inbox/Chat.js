@@ -14,10 +14,16 @@ const Chat = ({ chat }) => {
         dispatch(setActiveChat(chat))
     }
 
+    const handleKeyDown = e => {
+        if (e.key === "Enter") dispatch(setActiveChat(chat))
+    }
+
     return (
         <div 
             className={`chat-card ${match ? "active" : null}`}
+            tabIndex="0"
             onClick={handleClick}
+            onKeyDown={handleKeyDown}
         >
             <h1>{chat.title}</h1>
             <p>
